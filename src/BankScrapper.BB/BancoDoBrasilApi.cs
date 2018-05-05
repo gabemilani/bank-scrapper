@@ -1,6 +1,5 @@
 ﻿using BankScrapper.BB.DTOs;
 using BankScrapper.Utils;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,6 +12,7 @@ namespace BankScrapper.BB
 
         private readonly string _deviceId;
         private readonly string _ida;
+
         private string _idh;
         private string _nickname;
 
@@ -41,13 +41,11 @@ namespace BankScrapper.BB
 
             var result = await PostWithJsonResponseAsync<BalanceResultDTO>(relativeUrl, values);
 
-            if (double.TryParse(result?.ServicoSaldo?.Saldo?.Split(' ')[0], out var balance))
-                return balance;
-
-            return 0d;
+            double.TryParse(result?.ServicoSaldo?.Saldo?.Split(' ')[0], out var balance);
+            return balance;
         }
 
-        public async Task GetTransactionsAsync()
+        public async Task<ExtractDTO> GetExtractAsync()
         {
             await InitializeAsync();
 
@@ -61,9 +59,7 @@ namespace BankScrapper.BB
                 { "apelido", _nickname }
             };
 
-            var result = await PostWithJsonResponseAsync<JObject>(relativeUrl, values);
-
-            throw new NotImplementedException();
+            return await PostWithJsonResponseAsync<ExtractDTO>(relativeUrl, values);
         }
 
         public async Task<LoginResultDTO> LoginAsync(string agency, string account, string password, int holderLevel)

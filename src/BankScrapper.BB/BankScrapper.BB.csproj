@@ -47,9 +47,8 @@
     <Compile Include="BancoDoBrasilConnectionData.cs" />
     <Compile Include="BancoDoBrasilProvider.cs" />
     <Compile Include="DTOs\BalanceDTO.cs" />
-    <Compile Include="DTOs\BalanceResultDTO.cs" />
+    <Compile Include="DTOs\ExtractDTO.cs" />
     <Compile Include="DTOs\LoginDTO.cs" />
-    <Compile Include="DTOs\LoginResultDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

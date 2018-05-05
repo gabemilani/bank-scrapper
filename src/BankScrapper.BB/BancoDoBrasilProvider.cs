@@ -49,8 +49,10 @@ namespace BankScrapper.BB
             };
         }
 
-        public override Task<Transaction[]> GetTransactionsAsync()
+        public override async Task<Transaction[]> GetTransactionsAsync()
         {
+            var extractDTO = await _api.GetExtractAsync();
+
             throw new NotImplementedException();
         }
     }

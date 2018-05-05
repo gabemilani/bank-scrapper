@@ -34,9 +34,11 @@ namespace BankScrapper.Playground
                 Console.WriteLine($"Ag: {account.Agency}");
                 Console.WriteLine($"Cc: {account.Number}");
                 Console.WriteLine($"Tipo: {account.PersonType.GetDescription()}");
-                Console.WriteLine($"Titularidade: {account.HoldershipLevel}");
+                Console.WriteLine($"Titularidade: {account.HoldershipLevel}º titular");
                 Console.WriteLine($"Saldo atual: {account.CurrentBalance.ToBrazillianCurrency()}");
                 Console.WriteLine($"Nome do cliente: {account.CustomerName}");
+
+                var transactions = await bbProvider.GetTransactionsAsync();
             }
         }
     }
