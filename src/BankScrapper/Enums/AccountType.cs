@@ -2,7 +2,7 @@
 
 namespace BankScrapper.Enums
 {
-    public enum PersonType
+    public enum AccountType
     {
         [Description("N/A")]
         Unknown,

@@ -1,4 +1,5 @@
 ﻿using BankScrapper.Enums;
+using System.Collections.Generic;
 
 namespace BankScrapper.Models
 {
@@ -8,12 +9,12 @@ namespace BankScrapper.Models
 
         public double CurrentBalance { get; set; }
 
-        public string CustomerName { get; set; }
+        public Customer Customer { get; set; }
 
-        public int HoldershipLevel { get; set; }
+        public Dictionary<string, string> ExtraInformation { get; set; }
 
         public string Number { get; set; }
 
-        public PersonType PersonType { get; set; }
+        public AccountType Type { get; set; }
     }
 }

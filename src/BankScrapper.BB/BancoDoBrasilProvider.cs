@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using BankScrapper.Enums;
+﻿using BankScrapper.Enums;
 using BankScrapper.Models;
 using BankScrapper.Utils;
+using System;
+using System.Threading.Tasks;
 
 namespace BankScrapper.BB
 {
@@ -31,22 +31,32 @@ namespace BankScrapper.BB
             var balance = await _api.GetBalanceAsync();
 
             var segment = loginResult?.Login?.Segmento;
-            var personType = PersonType.Unknown;
+            var personType = AccountType.Unknown;
 
             if (segment.EqualsIgnoreCase("PESSOA_FISICA"))
-                personType = PersonType.Natural;
+                personType = AccountType.Natural;
             else if (segment.EqualsIgnoreCase("PESSOA_JURIDICA"))
-                personType = PersonType.Legal;
+                personType = AccountType.Legal;
 
-            return new Account
+            var account = new Account
             {
                 Agency = bbConnectionData.Agency,
                 Number = bbConnectionData.Account,
-                HoldershipLevel = bbConnectionData.HoldershipLevel,
-                CustomerName = loginResult?.Login?.NomeCliente,
-                PersonType = personType,
+                Type = personType,
                 CurrentBalance = balance
             };
+
+            if (!string.IsNullOrEmpty(loginResult?.Login?.NomeCliente))
+            {
+                account.Customer = new Customer
+                {
+                    Name = loginResult.Login.NomeCliente
+                };
+            }
+
+            account.ExtraInformation["Titularidade"] = $"{bbConnectionData.HoldershipLevel}o titular";
+
+            return account;
         }
 
         public override async Task<Transaction[]> GetTransactionsAsync()

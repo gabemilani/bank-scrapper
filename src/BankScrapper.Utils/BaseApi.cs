@@ -10,14 +10,20 @@ namespace BankScrapper.Utils
 {
     public abstract class BaseApi : IDisposable
     {
-        private readonly HttpClient _httpClient;        
+        private readonly HttpClient _httpClient;
+
+        public BaseApi()
+        {
+            _httpClient = new HttpClient
+            {
+                Timeout = new TimeSpan(0, 1, 0)
+            };
+        }
 
         public BaseApi(string baseUrl)
         {
             if (baseUrl.IsNullOrEmpty())
-            {
                 throw new ArgumentNullException(nameof(baseUrl));
-            }
 
             _httpClient = new HttpClient
             {
@@ -49,19 +55,6 @@ namespace BankScrapper.Utils
             return _httpClient.PostAsync(relativeUrl, new FormUrlEncodedContent(values));
         }
 
-        protected async Task<string> PostWithStringResponseAsync(string relativeUrl, IDictionary<string, string> values)
-        {
-            using (var response = await _httpClient.PostAsync(relativeUrl, new FormUrlEncodedContent(values)))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsStringAsync();
-                }
-            }
-
-            return null;
-        }
-
         protected async Task<TResponse> PostWithJsonResponseAsync<TResponse>(string relativeUrl, IDictionary<string, string> values)
         {
             using (var response = await _httpClient.PostAsync(relativeUrl, new FormUrlEncodedContent(values)))
@@ -76,7 +69,6 @@ namespace BankScrapper.Utils
             return default(TResponse);
         }
 
-
         protected async Task<TResponse> PostWithResponseAsync<TResponse>(string relativeUrl, object value)
         {
             using (var response = await _httpClient.PostAsync(relativeUrl, new JsonContent(value)))
@@ -89,6 +81,19 @@ namespace BankScrapper.Utils
             }
 
             return default(TResponse);
+        }
+
+        protected async Task<string> PostWithStringResponseAsync(string relativeUrl, IDictionary<string, string> values)
+        {
+            using (var response = await _httpClient.PostAsync(relativeUrl, new FormUrlEncodedContent(values)))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+            }
+
+            return null;
         }
 
         private class JsonContent : StringContent

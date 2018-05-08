@@ -42,10 +42,13 @@
   <ItemGroup>
     <Compile Include="BankProvider.cs" />
     <Compile Include="Enums\Bank.cs" />
-    <Compile Include="Enums\PersonType.cs" />
+    <Compile Include="Enums\AccountType.cs" />
+    <Compile Include="Enums\Gender.cs" />
     <Compile Include="IBankConnectionData.cs" />
     <Compile Include="IBankProvider.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

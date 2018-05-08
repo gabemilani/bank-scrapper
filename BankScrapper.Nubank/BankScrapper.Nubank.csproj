@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F7A8117B-DA50-4008-924D-FEB1B2AD5978}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>BankScrapper.Playground</RootNamespace>
-    <AssemblyName>BankScrapper.Playground</AssemblyName>
+    <ProjectGuid>{B5BF04AD-3014-4F5D-A802-4FE48D084EBE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BankScrapper.Nubank</RootNamespace>
+    <AssemblyName>BankScrapper.Nubank</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,8 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,31 +43,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="DTOs\AuthorizationDTOs.cs" />
+    <Compile Include="DTOs\CustomerDTOs.cs" />
+    <Compile Include="DTOs\LinkDTO.cs" />
+    <Compile Include="NubankApi.cs" />
+    <Compile Include="NubankConnectionData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\BankScrapper.Nubank\BankScrapper.Nubank.csproj">
-      <Project>{b5bf04ad-3014-4f5d-a802-4fe48d084ebe}</Project>
-      <Name>BankScrapper.Nubank</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\BankScrapper.BB\BankScrapper.BB.csproj">
-      <Project>{90D53D8A-988D-4268-9C32-F904429E2376}</Project>
-      <Name>BankScrapper.BB</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\BankScrapper.Utils\BankScrapper.Utils.csproj">
-      <Project>{6cf5315b-1b11-4cae-a4df-48430cd8c1b5}</Project>
+    <ProjectReference Include="..\src\BankScrapper.Utils\BankScrapper.Utils.csproj">
+      <Project>{6CF5315B-1B11-4CAE-A4DF-48430CD8C1B5}</Project>
       <Name>BankScrapper.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\BankScrapper\BankScrapper.csproj">
+    <ProjectReference Include="..\src\BankScrapper\BankScrapper.csproj">
       <Project>{1416afdd-4235-49f7-a301-bf0eaf2700ed}</Project>
       <Name>BankScrapper</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

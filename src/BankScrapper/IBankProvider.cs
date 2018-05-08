@@ -6,12 +6,10 @@ namespace BankScrapper
 {
     public interface IBankProvider : IDisposable
     {
+        Bank Bank { get; }
         IBankConnectionData ConnectionData { get; }
 
-        Bank Bank { get; }
-
         Task<Account> GetAccountAsync();
-
         Task<Transaction[]> GetTransactionsAsync();
     }
 }

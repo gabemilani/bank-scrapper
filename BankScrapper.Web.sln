@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankScrapper.Web", "src\Ban
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankScrapper.Domain", "src\BankScrapper.Domain\BankScrapper.Domain.csproj", "{473BA71A-F006-4B4C-B580-56F32A74513A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankScrapper.Nubank", "BankScrapper.Nubank\BankScrapper.Nubank.csproj", "{B5BF04AD-3014-4F5D-A802-4FE48D084EBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{473BA71A-F006-4B4C-B580-56F32A74513A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{473BA71A-F006-4B4C-B580-56F32A74513A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{473BA71A-F006-4B4C-B580-56F32A74513A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5BF04AD-3014-4F5D-A802-4FE48D084EBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5BF04AD-3014-4F5D-A802-4FE48D084EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5BF04AD-3014-4F5D-A802-4FE48D084EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5BF04AD-3014-4F5D-A802-4FE48D084EBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{6CF5315B-1B11-4CAE-A4DF-48430CD8C1B5} = {1F165F43-93D6-4ABB-8CE3-CA1BD9C6DE05}
 		{B0FEC4CC-CDD0-45E9-BEB0-09E62A1B9484} = {1F165F43-93D6-4ABB-8CE3-CA1BD9C6DE05}
 		{473BA71A-F006-4B4C-B580-56F32A74513A} = {1F165F43-93D6-4ABB-8CE3-CA1BD9C6DE05}
+		{B5BF04AD-3014-4F5D-A802-4FE48D084EBE} = {1F165F43-93D6-4ABB-8CE3-CA1BD9C6DE05}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3DA67812-45AF-4615-AD09-70475946785D}
