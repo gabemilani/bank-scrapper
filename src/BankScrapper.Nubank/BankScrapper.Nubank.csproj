@@ -51,11 +51,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\BankScrapper.Utils\BankScrapper.Utils.csproj">
+    <ProjectReference Include="..\BankScrapper.Utils\BankScrapper.Utils.csproj">
       <Project>{6CF5315B-1B11-4CAE-A4DF-48430CD8C1B5}</Project>
       <Name>BankScrapper.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\BankScrapper\BankScrapper.csproj">
+    <ProjectReference Include="..\BankScrapper\BankScrapper.csproj">
       <Project>{1416afdd-4235-49f7-a301-bf0eaf2700ed}</Project>
       <Name>BankScrapper</Name>
     </ProjectReference>

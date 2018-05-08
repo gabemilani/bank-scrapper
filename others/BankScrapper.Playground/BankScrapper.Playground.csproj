@@ -52,13 +52,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BankScrapper.Nubank\BankScrapper.Nubank.csproj">
-      <Project>{b5bf04ad-3014-4f5d-a802-4fe48d084ebe}</Project>
-      <Name>BankScrapper.Nubank</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\BankScrapper.BB\BankScrapper.BB.csproj">
       <Project>{90D53D8A-988D-4268-9C32-F904429E2376}</Project>
       <Name>BankScrapper.BB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\BankScrapper.Nubank\BankScrapper.Nubank.csproj">
+      <Project>{b5bf04ad-3014-4f5d-a802-4fe48d084ebe}</Project>
+      <Name>BankScrapper.Nubank</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\BankScrapper.Utils\BankScrapper.Utils.csproj">
       <Project>{6cf5315b-1b11-4cae-a4df-48430cd8c1b5}</Project>
