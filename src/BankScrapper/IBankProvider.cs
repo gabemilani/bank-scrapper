@@ -9,7 +9,6 @@ namespace BankScrapper
         Bank Bank { get; }
         IBankConnectionData ConnectionData { get; }
 
-        Task<Account> GetAccountAsync();
-        Task<Transaction[]> GetTransactionsAsync();
+        Task<BankScrapeResult> GetResultAsync();
     }
 }

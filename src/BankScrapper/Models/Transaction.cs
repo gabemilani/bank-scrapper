@@ -10,5 +10,6 @@ namespace BankScrapper.Models
     {
         public DateTime Date { get; set; }
 
+        public Dictionary<string, string> ExtraInformation { get; set; }
     }
 }

@@ -9,8 +9,6 @@ namespace BankScrapper.Models
 
         public double CurrentBalance { get; set; }
 
-        public Customer Customer { get; set; }
-
         public Dictionary<string, string> ExtraInformation { get; set; }
 
         public string Number { get; set; }

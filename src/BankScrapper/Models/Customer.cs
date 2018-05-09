@@ -1,5 +1,6 @@
 ﻿using BankScrapper.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace BankScrapper.Models
 {
@@ -20,5 +21,7 @@ namespace BankScrapper.Models
         public string Name { get; set; }
 
         public string Phone { get; set; }
+
+        public Dictionary<string, string> ExtraInformation { get; set; }
     }
 }

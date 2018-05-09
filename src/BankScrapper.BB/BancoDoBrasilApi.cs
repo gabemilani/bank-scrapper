@@ -62,7 +62,7 @@ namespace BankScrapper.BB
             return await PostWithJsonResponseAsync<ExtractDTO>(relativeUrl, values);
         }
 
-        public async Task<LoginResultDTO> LoginAsync(string agency, string account, string password, int holderLevel)
+        public async Task<LoginDTO> LoginAsync(string agency, string account, string password, int holderLevel)
         {
             await InitializeAsync();
 
@@ -84,7 +84,7 @@ namespace BankScrapper.BB
 
             await PostLoginAsync();
 
-            return result;
+            return result?.Login;
         }
 
         private async Task InitializeAsync()

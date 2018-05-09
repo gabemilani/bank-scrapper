@@ -20,7 +20,6 @@ namespace BankScrapper
         public IBankConnectionData ConnectionData { get; }
 
         public abstract void Dispose();
-        public abstract Task<Account> GetAccountAsync();
-        public abstract Task<Transaction[]> GetTransactionsAsync();
+        public abstract Task<BankScrapeResult> GetResultAsync();
     }
 }

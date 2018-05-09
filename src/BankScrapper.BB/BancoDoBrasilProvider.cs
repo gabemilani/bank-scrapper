@@ -18,7 +18,7 @@ namespace BankScrapper.BB
 
         public override void Dispose() => _api.Dispose();
 
-        public override async Task<Account> GetAccountAsync()
+        public override async Task<BankScrapeResult> GetResultAsync()
         {
             var bbConnectionData = ConnectionData as BancoDoBrasilConnectionData;
 
@@ -30,40 +30,37 @@ namespace BankScrapper.BB
 
             var balance = await _api.GetBalanceAsync();
 
-            var segment = loginResult?.Login?.Segmento;
-            var personType = AccountType.Unknown;
+            var segment = loginResult.Segmento;
+            var type = AccountType.Unknown;
 
             if (segment.EqualsIgnoreCase("PESSOA_FISICA"))
-                personType = AccountType.Natural;
+                type = AccountType.Natural;
             else if (segment.EqualsIgnoreCase("PESSOA_JURIDICA"))
-                personType = AccountType.Legal;
+                type = AccountType.Legal;
 
             var account = new Account
             {
                 Agency = bbConnectionData.Agency,
                 Number = bbConnectionData.Account,
-                Type = personType,
+                Type = type,
                 CurrentBalance = balance
             };
 
-            if (!string.IsNullOrEmpty(loginResult?.Login?.NomeCliente))
-            {
-                account.Customer = new Customer
-                {
-                    Name = loginResult.Login.NomeCliente
-                };
-            }
-
             account.ExtraInformation["Titularidade"] = $"{bbConnectionData.HoldershipLevel}o titular";
 
-            return account;
-        }
+            var customer = new Customer
+            {
+                Name = loginResult.NomeCliente
+            };
 
-        public override async Task<Transaction[]> GetTransactionsAsync()
-        {
+
             var extractDTO = await _api.GetExtractAsync();
 
-            throw new NotImplementedException();
+            return new BankScrapeResult
+            {
+                Account = account,
+                Customer = customer
+            };
         }
     }
 }

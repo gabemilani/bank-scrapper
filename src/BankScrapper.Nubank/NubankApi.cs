@@ -1,5 +1,6 @@
 ﻿using BankScrapper.Nubank.DTOs;
 using BankScrapper.Utils;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -16,28 +17,46 @@ namespace BankScrapper.Nubank
             DefaultRequestHeaders.Referrer = new Uri("https://conta.nubank.com.br/");
             DefaultRequestHeaders.Add("Origin", "https://app.nubank.com.br");
 
-            UpdateCorrelationId("WEB-APP.BmpW1");
+            UpdateCorrelationId("WEB-APP.uak6q");
+        }
+
+        public async Task<CustomerDTO> GetCustomerAsync(AuthorizationResultDTO result)
+        {
+            DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", result.AccessToken);
+            var url = result.Links.Customer.Href;
+            var customerResult = await GetAsync<CustomerResultDTO>(url);
+            return customerResult.Customer;
+        }
+
+        public async Task<AccountDTO> GetAccountAsync(AuthorizationResultDTO result)
+        {
+            DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", result.AccessToken);
+            var url = result.Links.Account.Href;
+            var accountResult = await GetAsync<AccountResultDTO>(url);
+            return accountResult.Account;
+        }
+
+        public async Task<JToken> GetToken(string url, string accessToken)
+        {
+            DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            return await GetAsync<JToken>(url);
         }
 
         public async Task<AuthorizationResultDTO> LoginAsync(string cpf, string password)
         {
-            //var url = "https://prod-auth.nubank.com.br/api/token";
-            var url = "https://prod-s0-webapp-proxy.nubank.com.br/api/proxy/AJxL5LBUC2Tx4PB-W6VD1SEIOd2xp14EDQ.aHR0cHM6Ly9wcm9kLWdsb2JhbC1hdXRoLm51YmFuay5jb20uYnIvYXBpL3Rva2Vu";
+            var url = "https://prod-s0-webapp-proxy.nubank.com.br/api/discovery";
+            var discoveryResult = await GetAsync<DiscoveryDTO>(url);
 
             var body = new
             {
                 grant_type = "password",
                 login = cpf,
-                password = password,
+                password,
                 client_id = "other.conta",
                 client_secret = "yQPeLzoHuJzlMMSAjC-LgNUJdUecx8XO"
             };
 
-            var result = await PostWithResponseAsync<AuthorizationResultDTO>(url, body);
-
-            DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", result.AccessToken);
-
-            return result;
+            return await PostWithResponseAsync<AuthorizationResultDTO>(discoveryResult.Login, body);
         }
 
         private void UpdateCorrelationId(string correlationId)

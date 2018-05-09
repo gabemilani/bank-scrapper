@@ -26,7 +26,15 @@ namespace BankScrapper.Playground
 
             var api = new NubankApi();
 
-            await api.LoginAsync(connectionData.CPF, connectionData.Password);
+            var auth = await api.LoginAsync(connectionData.CPF, connectionData.Password);
+            var customer = await api.GetCustomerAsync(auth);
+            var account = await api.GetAccountAsync(auth);
+
+            //var billsSummary = await api.GetToken(auth.Links.Events.Href, auth.AccessToken);
+
+
+
+
         }
 
         async static void LoginBB()
@@ -40,34 +48,17 @@ namespace BankScrapper.Playground
             };
 
             Console.WriteLine("Realizando conexão com o Banco do Brasil. Por favor, aguarde...");
-            
 
             using (var bbProvider = new BancoDoBrasilProvider(connectionData))
             {
-                var account = await bbProvider.GetAccountAsync();
-                var transactions = await bbProvider.GetTransactionsAsync();
+                var result = await bbProvider.GetResultAsync();
 
-                Console.WriteLine("Dados coletados a partir do Banco do Brasil");
+                Console.WriteLine("Dados coletados a partir do Banco do Brasil:");
 
-                PrintAccountData(account);
-            }
-        }
+                var json = result.ToString();
 
-        static void PrintAccountData(Account account)
-        {
-            Console.WriteLine();
-            Console.WriteLine("Dados coletados da conta");
-            Console.WriteLine($"Agencia: {account.Agency}");
-            Console.WriteLine($"Número: {account.Number}");
-            Console.WriteLine($"Tipo: {account.Type.GetDescription()}");
-            Console.WriteLine($"Saldo atual: {account.CurrentBalance.ToBrazillianCurrency()}");
-
-            if (account.Customer != null)
-                Console.WriteLine($"Nome do cliente: {account.Customer.Name}");
-
-            foreach (var extraInformation in account.ExtraInformation)
-            {
-                Console.WriteLine($"{extraInformation.Key}: {extraInformation.Value}");
+                Console.WriteLine();
+                Console.WriteLine(json);
             }
         }
     }

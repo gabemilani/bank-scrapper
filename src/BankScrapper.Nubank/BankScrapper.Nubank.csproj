@@ -43,11 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\AccountDTOs.cs" />
     <Compile Include="DTOs\AuthorizationDTOs.cs" />
     <Compile Include="DTOs\CustomerDTOs.cs" />
+    <Compile Include="DTOs\DiscoveryDTO.cs" />
     <Compile Include="DTOs\LinkDTO.cs" />
     <Compile Include="NubankApi.cs" />
     <Compile Include="NubankConnectionData.cs" />
+    <Compile Include="NubankProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
