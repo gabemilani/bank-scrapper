@@ -65,6 +65,15 @@ namespace BankScrapper.BB
             //relativeUrl = "tela/Limites/consultarLimites?opcaoConsulta=2"; // pagamento
             //result = await PostWithJsonResponseAsync<JObject>(relativeUrl, values);
 
+            //tela/ExtratoDeContaCorrente/entrada
+            //tela/SaldoPoupanca/saldo
+            //tela/SaldoConsolidado/entrada
+            //tela/ExtratoFatura/entrada
+            //tela/LimiteCompraSaque/entrada
+            //tela/SaldoDeInvestimentos/entrada
+            //tela/ExtratoFundosInvestimento/entrada
+            //tela/Limites/consultarLimites ? parametros
+
             //relativeUrl = "tela/Limites/consultarLimites?opcaoConsulta=2"; // transferencia
             //result = await PostWithJsonResponseAsync<JObject>(relativeUrl, values);
         }
