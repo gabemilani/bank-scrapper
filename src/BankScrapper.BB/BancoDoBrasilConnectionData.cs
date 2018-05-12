@@ -10,14 +10,18 @@ namespace BankScrapper.BB
 
         public string ElectronicPassword { get; set; }
 
-        public int HoldershipLevel { get; set; }
-
         public bool IsValid()
         {
-            return !Agency.IsNullOrEmpty()
-                && !Account.IsNullOrEmpty()
-                && !ElectronicPassword.IsNullOrEmpty()
-                && HoldershipLevel > 0;
+            if (Agency?.Length != 6)
+                return false;
+
+            if (Account.IsNullOrEmpty())
+                return false;
+
+            if (ElectronicPassword?.Length != 8)
+                return false;
+
+            return Agency.Contains("-") && Account.Contains("-");
         }
     }
 }

@@ -11,8 +11,8 @@ namespace BankScrapper.Playground
     {
         static void Main(string[] args)
         {
-            LoginNubank();
-            //LoginBB();
+            //LoginNubank();
+            LoginBB();
             Console.ReadKey();
         }
 
@@ -43,13 +43,12 @@ namespace BankScrapper.Playground
             {
                 Account = ConfigurationManager.AppSettings["ContaBB"],
                 Agency = ConfigurationManager.AppSettings["AgenciaBB"],
-                ElectronicPassword = ConfigurationManager.AppSettings["SenhaEletronicaBB"],
-                HoldershipLevel = 1
+                ElectronicPassword = ConfigurationManager.AppSettings["SenhaEletronicaBB"]
             };
 
             Console.WriteLine("Realizando conexão com o Banco do Brasil. Por favor, aguarde...");
 
-            using (var bbProvider = new BancoDoBrasilProvider(connectionData))
+            using (var bbProvider = BancoDoBrasilProvider.New(connectionData))
             {
                 var result = await bbProvider.GetResultAsync();
 

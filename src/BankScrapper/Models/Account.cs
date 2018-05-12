@@ -1,4 +1,5 @@
 ﻿using BankScrapper.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace BankScrapper.Models
@@ -9,7 +10,7 @@ namespace BankScrapper.Models
 
         public double CurrentBalance { get; set; }
 
-        public Dictionary<string, string> ExtraInformation { get; set; }
+        public Dictionary<string, string> ExtraInformation { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         public string Number { get; set; }
 

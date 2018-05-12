@@ -3,7 +3,7 @@
 namespace BankScrapper.BB.DTOs
 {
     [JsonObject(IsReference = false)]
-    public class ExtractDTO
+    public class LayoutDTO
     {
         [JsonProperty("conteiner")]
         public ContainerDTO Container { get; set; }

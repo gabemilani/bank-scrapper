@@ -1,12 +1,13 @@
 ﻿using BankScrapper.BB.DTOs;
 using BankScrapper.Utils;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BankScrapper.BB
 {
-    internal sealed class BancoDoBrasilApi : BaseApi
+    public sealed class BancoDoBrasilApi : BaseApi
     {
         private const string BaseApiUrl = "https://mobi.bb.com.br/mov-centralizador/";
 
@@ -23,6 +24,8 @@ namespace BankScrapper.BB
             _deviceId = "000000000000000";
             _idh = "";
             _nickname = "BankScrapper." + new Random().Next(1000, 99999);
+
+            DefaultRequestHeaders.UserAgent.ParseAdd(@"Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1");
         }
 
         public async Task<double> GetBalanceAsync()
@@ -45,7 +48,28 @@ namespace BankScrapper.BB
             return balance;
         }
 
-        public async Task<ExtractDTO> GetExtractAsync()
+        public async Task GetOtherData()
+        {
+            var relativeUrl = "tela/LimiteCompraSaque/entrada";
+
+            var values = new Dictionary<string, string>
+            {
+                
+                { "idh", _idh },
+                { "idDispositivo", _deviceId },
+                { "apelido", _nickname }
+            };
+
+            var result = await PostWithJsonResponseAsync<JObject>(relativeUrl, values);
+
+            //relativeUrl = "tela/Limites/consultarLimites?opcaoConsulta=2"; // pagamento
+            //result = await PostWithJsonResponseAsync<JObject>(relativeUrl, values);
+
+            //relativeUrl = "tela/Limites/consultarLimites?opcaoConsulta=2"; // transferencia
+            //result = await PostWithJsonResponseAsync<JObject>(relativeUrl, values);
+        }
+
+        public async Task<LayoutDTO> GetExtractLayoutAsync()
         {
             await InitializeAsync();
 
@@ -59,10 +83,12 @@ namespace BankScrapper.BB
                 { "apelido", _nickname }
             };
 
-            return await PostWithJsonResponseAsync<ExtractDTO>(relativeUrl, values);
+            var result = await PostWithJsonResponseAsync<JObject>(relativeUrl, values);
+
+            return result.ToObject<LayoutDTO>();
         }
 
-        public async Task<LoginDTO> LoginAsync(string agency, string account, string password, int holderLevel)
+        public async Task<LoginDTO> LoginAsync(string agency, string account, string password)
         {
             await InitializeAsync();
 
@@ -77,12 +103,12 @@ namespace BankScrapper.BB
                 { "numeroContratoOrigem",  account },
                 { "idRegistroNotificacao", "" },
                 { "idDispositivo", _deviceId },
-                { "titularidade", holderLevel.ToString() }
+                { "titularidade", "1" }
             };
 
             var result = await PostWithJsonResponseAsync<LoginResultDTO>(relativeUrl, values);
 
-            await PostLoginAsync();
+            await AfterLoginAsync();
 
             return result?.Login;
         }
@@ -91,8 +117,6 @@ namespace BankScrapper.BB
         {
             if (!_idh.IsNullOrEmpty())
                 return;
-
-            var relativeUrl = "hash";
 
             var values = new Dictionary<string, string>
             {
@@ -103,10 +127,10 @@ namespace BankScrapper.BB
                 { "apelido", _nickname }
             };
 
-            _idh = await PostWithStringResponseAsync(relativeUrl, values);
+            _idh = await PostWithStringResponseAsync("hash", values);
         }
 
-        private async Task PostLoginAsync()
+        private async Task AfterLoginAsync()
         {
             var values = new Dictionary<string, string>
             {
@@ -127,7 +151,11 @@ namespace BankScrapper.BB
             foreach (var relativeUrl in relativeUrls)
             {
                 await PostAsync(relativeUrl, values);
+
+                var teste = await PostWithStringResponseAsync(relativeUrl, new Dictionary<string, string>());
             }
+
+            
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using BankScrapper.Models;
+﻿using BankScrapper.Utils;
 using System;
 using System.Threading.Tasks;
 
@@ -10,6 +10,9 @@ namespace BankScrapper
         {
             if (bank == Bank.Unknown)
                 throw new ArgumentException("Não é possível criar um provedor de um banco desconhecido", nameof(bank));
+
+            if (connectionData?.IsValid() != true)
+                throw new Exception($"Os dados de conexão do {bank.GetDescription()} são inválidos");
 
             Bank = bank;
             ConnectionData = connectionData ?? throw new ArgumentNullException(nameof(connectionData));

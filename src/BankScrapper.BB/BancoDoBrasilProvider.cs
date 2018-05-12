@@ -2,33 +2,43 @@
 using BankScrapper.Models;
 using BankScrapper.Utils;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BankScrapper.BB
 {
     public sealed class BancoDoBrasilProvider : BankProvider
     {
-        private readonly BancoDoBrasilApi _api;
+        private readonly BancoDoBrasilApi _repository;
 
-        public BancoDoBrasilProvider(BancoDoBrasilConnectionData connectionData) 
+        public BancoDoBrasilProvider(BancoDoBrasilApi repository, BancoDoBrasilConnectionData connectionData) 
             : base(Bank.BancoDoBrasil, connectionData)
         {
-            _api = new BancoDoBrasilApi();
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public override void Dispose() => _api.Dispose();
+        public static BancoDoBrasilProvider New(BancoDoBrasilConnectionData connectionData)
+        {
+            return new BancoDoBrasilProvider(
+                new BancoDoBrasilApi(),
+                connectionData);
+        }
+
+        public override void Dispose() => _repository.Dispose();
 
         public override async Task<BankScrapeResult> GetResultAsync()
         {
             var bbConnectionData = ConnectionData as BancoDoBrasilConnectionData;
 
-            var loginResult = await _api.LoginAsync(
+            var loginResult = await _repository.LoginAsync(
                 bbConnectionData.Agency,
                 bbConnectionData.Account,
-                bbConnectionData.ElectronicPassword,
-                bbConnectionData.HoldershipLevel);
+                bbConnectionData.ElectronicPassword);
 
-            var balance = await _api.GetBalanceAsync();
+            var balance = await _repository.GetBalanceAsync();
+
+            await _repository.GetOtherData();
 
             var segment = loginResult.Segmento;
             var type = AccountType.Unknown;
@@ -46,15 +56,20 @@ namespace BankScrapper.BB
                 CurrentBalance = balance
             };
 
-            account.ExtraInformation["Titularidade"] = $"{bbConnectionData.HoldershipLevel}o titular";
-
             var customer = new Customer
             {
                 Name = loginResult.NomeCliente
             };
 
-
-            var extractDTO = await _api.GetExtractAsync();
+            var extractLayout = await _repository.GetExtractLayoutAsync();
+            var sessions = extractLayout?.Container?.Telas?.FirstOrDefault()?.Sessoes;
+            if (sessions?.Any() == true)
+            {
+                foreach (var session in sessions.Where(s => s.Tipo.EqualsIgnoreCase("sessao")))
+                {
+                    
+                }
+            }
 
             return new BankScrapeResult
             {
