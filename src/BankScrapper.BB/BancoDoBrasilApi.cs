@@ -42,7 +42,7 @@ namespace BankScrapper.BB
                 { "apelido", _nickname }
             };
 
-            var result = await PostWithJsonResponseAsync<BalanceResultDTO>(relativeUrl, values);
+            var result = await PostUrlEncodedAsync<BalanceResultDTO>(relativeUrl, values);
 
             double.TryParse(result?.ServicoSaldo?.Saldo?.Split(' ')[0], out var balance);
             return balance;
@@ -54,13 +54,12 @@ namespace BankScrapper.BB
 
             var values = new Dictionary<string, string>
             {
-                
                 { "idh", _idh },
                 { "idDispositivo", _deviceId },
                 { "apelido", _nickname }
             };
 
-            var result = await PostWithJsonResponseAsync<JObject>(relativeUrl, values);
+            var result = await PostUrlEncodedAsync<JObject>(relativeUrl, values);
 
             //relativeUrl = "tela/Limites/consultarLimites?opcaoConsulta=2"; // pagamento
             //result = await PostWithJsonResponseAsync<JObject>(relativeUrl, values);
@@ -92,7 +91,7 @@ namespace BankScrapper.BB
                 { "apelido", _nickname }
             };
 
-            var result = await PostWithJsonResponseAsync<JObject>(relativeUrl, values);
+            var result = await PostUrlEncodedAsync<JObject>(relativeUrl, values);
 
             return result.ToObject<LayoutDTO>();
         }
@@ -115,7 +114,7 @@ namespace BankScrapper.BB
                 { "titularidade", "1" }
             };
 
-            var result = await PostWithJsonResponseAsync<LoginResultDTO>(relativeUrl, values);
+            var result = await PostUrlEncodedAsync<LoginResultDTO>(relativeUrl, values);
 
             await AfterLoginAsync();
 
@@ -136,7 +135,7 @@ namespace BankScrapper.BB
                 { "apelido", _nickname }
             };
 
-            _idh = await PostWithStringResponseAsync("hash", values);
+            _idh = await PostUrlEncodedWithStringResponseAsync("hash", values);
         }
 
         private async Task AfterLoginAsync()
@@ -159,12 +158,8 @@ namespace BankScrapper.BB
 
             foreach (var relativeUrl in relativeUrls)
             {
-                await PostAsync(relativeUrl, values);
-
-                var teste = await PostWithStringResponseAsync(relativeUrl, new Dictionary<string, string>());
+                await PostUrlEncodedAsync(relativeUrl, values);
             }
-
-            
         }
     }
 }

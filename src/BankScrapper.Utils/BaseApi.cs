@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -34,71 +35,69 @@ namespace BankScrapper.Utils
 
         protected HttpRequestHeaders DefaultRequestHeaders => _httpClient.DefaultRequestHeaders;
 
-        public void Dispose() => _httpClient.Dispose();            
+        public void Dispose() => 
+            _httpClient.Dispose();
 
         protected async Task<T> GetAsync<T>(string relativeUrl)
+        {
+            var content = await GetStringAsync(relativeUrl);
+            return content.IsNullOrEmpty() ? default(T) : JsonConvert.DeserializeObject<T>(content);
+        }
+
+        protected Task<Stream> GetStreamAsync(string relativeUrl) => 
+            GetAsync(relativeUrl, c => c.ReadAsStreamAsync());
+
+        protected Task<string> GetStringAsync(string relativeUrl) => 
+            GetAsync(relativeUrl, c => c.ReadAsStringAsync());
+
+        protected Task<T> PostJsonAsync<T>(string relativeUrl, object value) =>
+            PostWithJsonResponseAsync<T>(relativeUrl, new JsonContent(value));
+
+        protected Task PostUrlEncodedAsync(string relativeUrl, IDictionary<string, string> values) =>
+            _httpClient.PostAsync(relativeUrl, new FormUrlEncodedContent(values));
+
+        protected Task<T> PostUrlEncodedAsync<T>(string relativeUrl, IDictionary<string, string> values) =>
+            PostWithJsonResponseAsync<T>(relativeUrl, new FormUrlEncodedContent(values));
+
+        protected Task<string> PostUrlEncodedWithStringResponseAsync(string relativeUrl, IDictionary<string, string> values) =>
+            PostAsync(relativeUrl, new FormUrlEncodedContent(values), c => c.ReadAsStringAsync());
+
+        private async Task<T> GetAsync<T>(string relativeUrl, Func<HttpContent, Task<T>> sucessCallbackTask)
         {
             using (var response = await _httpClient.GetAsync(relativeUrl))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    var content = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<T>(content);
+                    return await sucessCallbackTask(response.Content);
                 }
             }
 
             return default(T);
         }
 
-        protected Task PostAsync(string relativeUrl, IDictionary<string, string> values)
+        private async Task<T> PostAsync<T>(string relativeUrl, HttpContent content, Func<HttpContent, Task<T>> successCallbackTask)
         {
-            return _httpClient.PostAsync(relativeUrl, new FormUrlEncodedContent(values));
-        }
-
-        protected async Task<TResponse> PostWithJsonResponseAsync<TResponse>(string relativeUrl, IDictionary<string, string> values)
-        {
-            using (var response = await _httpClient.PostAsync(relativeUrl, new FormUrlEncodedContent(values)))
+            using (var response = await _httpClient.PostAsync(relativeUrl, content))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    var content = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<TResponse>(content);
+                    return await successCallbackTask(response.Content);
                 }
             }
 
-            return default(TResponse);
+            return default(T);
         }
 
-        protected async Task<TResponse> PostWithResponseAsync<TResponse>(string relativeUrl, object value)
+        private async Task<T> PostWithJsonResponseAsync<T>(string relativeUrl, HttpContent content)
         {
-            using (var response = await _httpClient.PostAsync(relativeUrl, new JsonContent(value)))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    var content = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<TResponse>(content);
-                }
-            }
-
-            return default(TResponse);
-        }
-
-        protected async Task<string> PostWithStringResponseAsync(string relativeUrl, IDictionary<string, string> values)
-        {
-            using (var response = await _httpClient.PostAsync(relativeUrl, new FormUrlEncodedContent(values)))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsStringAsync();
-                }
-            }
-
-            return null;
+            var responseContent = await PostAsync(relativeUrl, content, c => c.ReadAsStringAsync());
+            return responseContent.IsNullOrEmpty() ? default(T) : JsonConvert.DeserializeObject<T>(responseContent);
         }
 
         private class JsonContent : StringContent
         {
-            public JsonContent(object value) : base(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json")
+            public JsonContent(object value) 
+                : base(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json")
             {
             }
         }

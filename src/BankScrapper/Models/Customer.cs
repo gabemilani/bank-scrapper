@@ -22,6 +22,6 @@ namespace BankScrapper.Models
 
         public string Phone { get; set; }
 
-        public Dictionary<string, string> ExtraInformation { get; set; }
+        public Dictionary<string, string> ExtraInformation { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
     }
 }

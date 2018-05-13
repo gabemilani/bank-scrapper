@@ -1,4 +1,8 @@
-﻿namespace BankScrapper.Models
+﻿using BankScrapper.Utils;
+using System;
+using System.Text;
+
+namespace BankScrapper.Models
 {
     public class Address
     {
@@ -15,5 +19,32 @@
         public string Street { get; set; }
 
         public string Postcode { get; set; }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            Action<string, string> append = (value, separator) =>
+            {
+                if (!value.IsNullOrEmpty())
+                {
+                    if (sb.Length > 0)
+                        sb.Append(separator);
+
+                    sb.Append(value);
+                }
+            };
+
+            append(Street, ", ");
+            append(Number, ", ");
+            append(Neighborhood, ", ");
+            append(City, ", ");
+            append(State, " - ");
+            append(Country, "/");
+            append(Postcode, " - ");
+
+            return sb.ToString();
+        }
+
     }
 }

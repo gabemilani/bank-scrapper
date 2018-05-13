@@ -4,7 +4,7 @@ using System.Globalization;
 namespace BankScrapper.Utils
 {
     [DebuggerStepThrough]
-    public static class DoubleExtensions
+    public static class NumberExtensions
     {
         private static CultureInfo _brazillianCulture = CultureInfo.CreateSpecificCulture("pt-BR");
 

@@ -9,6 +9,8 @@ namespace BankScrapper.Enums
         [Description("Pessoa Física")]
         Natural,
         [Description("Pessoa Jurídica")]
-        Legal
+        Legal,
+        [Description("Cartão")]
+        Card
     }
 }

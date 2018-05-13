@@ -2,8 +2,10 @@
 using BankScrapper.Models;
 using BankScrapper.Nubank;
 using BankScrapper.Utils;
+using Newtonsoft.Json;
 using System;
 using System.Configuration;
+using System.Text;
 
 namespace BankScrapper.Playground
 {
@@ -11,8 +13,8 @@ namespace BankScrapper.Playground
     {
         static void Main(string[] args)
         {
-            //LoginNubank();
-            LoginBB();
+            LoginNubank();
+            //LoginBB();
             Console.ReadKey();
         }
 
@@ -24,17 +26,28 @@ namespace BankScrapper.Playground
                 Password = ConfigurationManager.AppSettings["NubankPassword"]
             };
 
-            var api = new NubankApi();
+            Console.WriteLine("Realizando conexão com o Nubank. Por favor, aguarde...");
 
-            var auth = await api.LoginAsync(connectionData.CPF, connectionData.Password);
-            var customer = await api.GetCustomerAsync(auth);
-            var account = await api.GetAccountAsync(auth);
+            using (var provider = new NubankProvider(new NubankApi(), connectionData))
+            {
+                var result = await provider.GetResultAsync();
+                Console.WriteLine("Dados coletados a partir do Nubank:");
+                PrintResult(result);
+            }
+        }
 
-            //var billsSummary = await api.GetToken(auth.Links.Events.Href, auth.AccessToken);
+        static void PrintResult(BankScrapeResult result)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                NullValueHandling = NullValueHandling.Ignore
+            };
 
+            var json = JsonConvert.SerializeObject(result, settings);
 
-
-
+            Console.WriteLine();
+            Console.WriteLine(json);
         }
 
         async static void LoginBB()
@@ -51,13 +64,8 @@ namespace BankScrapper.Playground
             using (var bbProvider = BancoDoBrasilProvider.New(connectionData))
             {
                 var result = await bbProvider.GetResultAsync();
-
                 Console.WriteLine("Dados coletados a partir do Banco do Brasil:");
-
-                var json = result.ToString();
-
-                Console.WriteLine();
-                Console.WriteLine(json);
+                PrintResult(result);
             }
         }
     }

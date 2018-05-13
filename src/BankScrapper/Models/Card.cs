@@ -14,6 +14,6 @@ namespace BankScrapper.Models
 
         public string PrintedName { get; set; }
 
-        public Dictionary<string, string> ExtraInformation { get; set; }
+        public Dictionary<string, string> ExtraInformation { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
     }
 }

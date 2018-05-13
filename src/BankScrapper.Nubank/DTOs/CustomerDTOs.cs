@@ -9,7 +9,7 @@ namespace BankScrapper.Nubank.DTOs
         public string AddressCity { get; set; }
 
         [JsonProperty("address_country")]
-        public string AddressCounty { get; set; }
+        public string AddressCountry { get; set; }
 
         [JsonProperty("address_line1")]
         public string AddressLine1 { get; set; }
@@ -184,9 +184,6 @@ namespace BankScrapper.Nubank.DTOs
 
         [JsonProperty("id")]
         public string Id { get; set; }
-
-        //[JsonProperty("_links")]
-        //public SelfLinkDTO Links { get; set; }
 
         [JsonProperty("push_token")]
         public string PushToken { get; set; }
