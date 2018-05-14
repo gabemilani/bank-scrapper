@@ -3,6 +3,7 @@ using BankScrapper.Models;
 using BankScrapper.Nubank.DTOs;
 using BankScrapper.Utils;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BankScrapper.Nubank
@@ -11,7 +12,7 @@ namespace BankScrapper.Nubank
     {
         private readonly NubankApi _repository;
 
-        public NubankProvider(NubankApi repository, NubankConnectionData connectionData) 
+        public NubankProvider(NubankApi repository, NubankConnectionData connectionData)
             : base(Bank.Nubank, connectionData)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -20,9 +21,77 @@ namespace BankScrapper.Nubank
         public override void Dispose() =>
             _repository.Dispose();
 
+        public override async Task<BankScrapeResult> GetResultAsync()
+        {
+            var nubankConnectionData = ConnectionData as NubankConnectionData;
+
+            var authResult = await _repository.LoginAsync(nubankConnectionData.CPF, nubankConnectionData.Password);
+
+            var account = await GetAccountAsync(authResult);
+            var customer = await GetCustomerAsync(authResult);
+            var cards = await GetCardsAsync(authResult);
+
+            return new BankScrapeResult
+            {
+                Account = account,
+                Customer = customer,
+                Cards = cards
+            };
+        }
+
+        private async Task<Bill[]> GetBillsAsync(AuthorizationResultDTO authResult)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<Account> GetAccountAsync(AuthorizationResultDTO authResult)
+        {
+            var accountDTO = await _repository.GetAccountAsync(authResult);
+            var account = new Account
+            {
+                Type = AccountType.Card,
+                CreationDate = accountDTO.CreatedAt
+            };
+
+            account.ExtraInformation["Limite de crédito"] = accountDTO.CreditLimit.GetMonetaryValue().ToBrazillianCurrency();
+            account.ExtraInformation["Fatura atual"] = accountDTO.CurrentBalance.GetMonetaryValue().ToBrazillianCurrency();
+            account.ExtraInformation["Crédito disponível"] = accountDTO.Balances.Available.GetMonetaryValue().ToBrazillianCurrency();
+            return account;
+        }
+
+        private async Task<Card[]> GetCardsAsync(AuthorizationResultDTO authResult)
+        {
+            var accountSimpleDTO = await _repository.GetAccountSimpleAsync(authResult);
+            var result = new List<Card>();
+
+            foreach (var cardDTO in accountSimpleDTO.Cards)
+            {
+                var goodThroughSplitted = cardDTO.GoodThrough.Split('-');
+
+                var card = new Card
+                {
+                    PrintedName = cardDTO.PrintedName,
+                    Number = cardDTO.CardNumber,
+                    ExpiryMonth = goodThroughSplitted[1].ToInt(),
+                    ExpiryYear = goodThroughSplitted[0].ToInt(),
+                    Type = cardDTO.Type.ContainsIgnoreCase("credit")
+                        ? CardType.Credit
+                        : cardDTO.Type.ContainsIgnoreCase("debit")
+                            ? CardType.Debit
+                            : CardType.Unknown
+                };
+
+                card.ExtraInformation["Cartão físico"] = cardDTO.Type.ContainsIgnoreCase("virtual") ? "Não" : "Sim";
+
+                result.Add(card);
+            }
+
+            return result.ToArray();
+        }
+
         private async Task<Customer> GetCustomerAsync(AuthorizationResultDTO authResult)
         {
-            var customerDTO = await _repository.GetCustomerAsync(authResult.Links.Customer.Href, authResult.AccessToken, authResult.TokenType);
+            var customerDTO = await _repository.GetCustomerAsync(authResult);
 
             var dateOfBirthSplitted = customerDTO.DateOfBirth.Split('-');
             var dateOfBirth = new DateTime(dateOfBirthSplitted[0].ToInt(), dateOfBirthSplitted[1].ToInt(), dateOfBirthSplitted[2].ToInt());
@@ -63,36 +132,6 @@ namespace BankScrapper.Nubank
             customer.ExtraInformation["Nacionalidade"] = customerDTO.Nationality;
 
             return customer;
-        }
-
-        public override async Task<BankScrapeResult> GetResultAsync()
-        {
-            var nubankConnectionData = ConnectionData as NubankConnectionData;
-
-            var authResult = await _repository.LoginAsync(nubankConnectionData.CPF,  nubankConnectionData.Password);
-
-
-
-            var accountDTO = await _repository.GetAccountAsync(authResult.Links.Account.Href, authResult.AccessToken, authResult.TokenType);
-
-            var account = new Account
-            {
-                Type = AccountType.Card,
-                CreationDate = accountDTO.CreatedAt
-            };
-
-            account.ExtraInformation["Limite de crédito"] = ((double)accountDTO.CreditLimit / 100).ToBrazillianCurrency();
-            account.ExtraInformation["Fatura atual"] = ((double)accountDTO.CurrentBalance / 100).ToBrazillianCurrency();
-            account.ExtraInformation["Crédito disponível"] = ((double)accountDTO.Balances.Available / 100).ToBrazillianCurrency();
-
-            var customer = await GetCustomerAsync(authResult);
-            
-            return new BankScrapeResult
-            {
-                Account = account,
-                Customer = customer,
-                
-            };
         }
     }
 }

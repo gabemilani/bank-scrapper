@@ -17,31 +17,40 @@ namespace BankScrapper.Nubank
             DefaultRequestHeaders.Add("Origin", "https://app.nubank.com.br");
         }
 
-        public async Task<AccountDTO> GetAccountAsync(string accountUrl, string accessToken, string tokenType)
+        public async Task<AccountDTO> GetAccountAsync(AuthorizationResultDTO auth)
         {
-            SetAuthorizationHeader(accessToken, tokenType);
-            var accountResult = await GetAsync<AccountResultDTO>(accountUrl);
-            return accountResult?.Account;
+            SetAuthorizationHeader(auth.AccessToken, auth.TokenType);
+            var result = await GetAsync<AccountResultDTO>(auth.Links.Account.Href);
+            return result?.Account;
         }
 
-        public async Task<CustomerDTO> GetCustomerAsync(string customerUrl, string accessToken, string tokenType)
+        public async Task<BillDTO[]> GetBillsAsync(AuthorizationResultDTO auth)
         {
-            SetAuthorizationHeader(accessToken, tokenType);
-            var customerResult = await GetAsync<CustomerResultDTO>(customerUrl);
+            SetAuthorizationHeader(auth.AccessToken, auth.TokenType);
+            var result = await GetAsync<BillsSummaryResultDTO>(auth.Links.BillsSummary.Href);
+            return result?.Bills;
+        }
+
+        public async Task<AccountSimpleDTO> GetAccountSimpleAsync(AuthorizationResultDTO auth)
+        {
+            SetAuthorizationHeader(auth.AccessToken, auth.TokenType);
+            var result = await GetAsync<AccountSimpleResultDTO>(auth.Links.AccountSimple.Href);
+            return result?.Account;
+        }
+
+        public async Task<CustomerDTO> GetCustomerAsync(AuthorizationResultDTO auth)
+        {
+            SetAuthorizationHeader(auth.AccessToken, auth.TokenType);
+            var customerResult = await GetAsync<CustomerResultDTO>(auth.Links.Customer.Href);
             return customerResult?.Customer;
         }
 
         public async Task Get(AuthorizationResultDTO dto)
         {
             SetAuthorizationHeader(dto.AccessToken, dto.TokenType);
-            var url = dto.Links.BillsSummary.Href;
+
+            var url = dto.Links.Events.Href;
             var result = await GetAsync<JObject>(url);
-
-            url = dto.Links.AccountSimple.Href;
-            result = await GetAsync<JObject>(url);
-
-            url = dto.Links.Events.Href;
-            result = await GetAsync<JObject>(url);
 
             url = dto.Links.EventsPage.Href;
             result = await GetAsync<JObject>(url);
@@ -65,15 +74,19 @@ namespace BankScrapper.Nubank
 
             try
             {
-                var url = "https://app.nubank.com.br/config/config.js";
+                var configUrl = "https://app.nubank.com.br/config/config.js";
 
-                var teste = await GetStringAsync(url);
+                // O que precisa ser feito aqui é receber esse arquivo javacsript de configuração
+                // Dentro dele vai ter qual a URL do discovery
+                // Não consegui, então deixei o valor fixo por enquanto
 
-                using (var configStream = await GetStreamAsync(url))
-                using (var streamReader = new StreamReader(configStream))
-                {
-                    var result = await streamReader.ReadToEndAsync();
-                }
+                //var result = await GetStringAsync(configUrl);
+
+                //using (var configStream = await GetStreamAsync(configUrl))
+                //using (var streamReader = new StreamReader(configStream))
+                //{
+                //    result = await streamReader.ReadToEndAsync();
+                //}
             }
             catch
             {

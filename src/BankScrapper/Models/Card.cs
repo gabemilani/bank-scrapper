@@ -10,7 +10,9 @@ namespace BankScrapper.Models
 
         public CardType Type { get; set; }
 
-        public DateTime ExpireDate { get; set; }
+        public int ExpiryYear { get; set; }
+
+        public int ExpiryMonth { get; set; }
 
         public string PrintedName { get; set; }
 

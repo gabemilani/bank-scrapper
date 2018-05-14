@@ -52,12 +52,31 @@ namespace BankScrapper.Nubank.DTOs
     }
 
     [JsonObject(IsReference = false)]
+    public sealed class AccountSimpleDTO
+    {
+        public CardDTO[] Cards { get; set; }
+    }
+
+    [JsonObject(IsReference = false)]
+    public sealed class AccountSimpleResultDTO
+    {
+        public AccountSimpleDTO Account { get; set; }
+    }
+
+    [JsonObject(IsReference = false)]
     public sealed class CardDTO
     {
         [JsonProperty("card_number")]
         public string CardNumber { get; set; }
 
+        [JsonProperty("good_through")]
+        public string GoodThrough { get; set; }
+
         [JsonProperty("printed_name")]
         public string PrintedName { get; set; }
+
+        public string Status { get; set; }
+
+        public string Type { get; set; }
     }
 }

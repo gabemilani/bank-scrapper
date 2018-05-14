@@ -56,10 +56,9 @@ namespace BankScrapper.BB
                 CurrentBalance = balance
             };
 
-            var customer = new Customer
-            {
-                Name = loginResult.NomeCliente
-            };
+            var customer = loginResult.NomeCliente.IsNullOrEmpty() 
+                ? null 
+                : new Customer { Name = loginResult.NomeCliente };
 
             var extractLayout = await _repository.GetExtractLayoutAsync();
             var sessions = extractLayout?.Container?.Telas?.FirstOrDefault()?.Sessoes;

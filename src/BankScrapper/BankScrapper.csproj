@@ -43,12 +43,14 @@
     <Compile Include="BankProvider.cs" />
     <Compile Include="Enums\Bank.cs" />
     <Compile Include="Enums\AccountType.cs" />
+    <Compile Include="Enums\BillState.cs" />
     <Compile Include="Enums\CardType.cs" />
     <Compile Include="Enums\Gender.cs" />
     <Compile Include="IBankConnectionData.cs" />
     <Compile Include="IBankProvider.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Bill.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="BankScrapeResult.cs" />

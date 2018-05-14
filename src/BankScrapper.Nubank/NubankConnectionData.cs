@@ -13,8 +13,7 @@ namespace BankScrapper.Nubank
             if (CPF.IsNullOrEmpty() || Password.IsNullOrEmpty())
                 return false;
 
-            if (CPF.Length > 11)
-                CPF = CPF.Replace(".", "").Replace("-", "");
+            CPF = CPF.Replace(".", "").Replace("-", "");
 
             return CPF.Length == 11;
         }
