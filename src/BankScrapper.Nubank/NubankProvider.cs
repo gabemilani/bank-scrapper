@@ -1,6 +1,7 @@
 ﻿using BankScrapper.Enums;
 using BankScrapper.Models;
 using BankScrapper.Utils;
+using BankScrapper.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

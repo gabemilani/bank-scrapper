@@ -6,7 +6,7 @@ namespace BankScrapper.Models
 {
     public class Account
     {
-        public DateTime? CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }        
 
         public string Agency { get; set; }
 

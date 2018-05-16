@@ -48,7 +48,7 @@
     <Compile Include="IBankConnectionData.cs" />
     <Compile Include="IBankProvider.cs" />
     <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\Address.cs" />
+    <Compile Include="ValueObjects\Address.cs" />
     <Compile Include="Models\Bill.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Customer.cs" />

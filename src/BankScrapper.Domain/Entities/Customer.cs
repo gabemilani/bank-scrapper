@@ -1,12 +1,15 @@
-﻿using BankScrapper.Enums;
+﻿using BankScrapper.Domain.Interfaces;
+using BankScrapper.Enums;
 using BankScrapper.ValueObjects;
 using System;
 using System.Collections.Generic;
 
-namespace BankScrapper.Models
+namespace BankScrapper.Domain.Entities
 {
-    public class Customer
+    public class Customer : IEntity
     {
+        public Guid Id { get; set; }
+
         public Address Address { get; set; }
 
         public Address BillingAddress { get; set; }
@@ -23,6 +26,6 @@ namespace BankScrapper.Models
 
         public string Phone { get; set; }
 
-        public Dictionary<string, string> ExtraInformation { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        public Dictionary<string, string> ExtraInformation { get; set; }
     }
 }

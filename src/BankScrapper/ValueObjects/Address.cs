@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 
-namespace BankScrapper.Models
+namespace BankScrapper.ValueObjects
 {
     public class Address
     {
