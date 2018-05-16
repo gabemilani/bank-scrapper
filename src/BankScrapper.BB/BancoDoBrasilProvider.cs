@@ -2,43 +2,27 @@
 using BankScrapper.Models;
 using BankScrapper.Utils;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace BankScrapper.BB
 {
-    public sealed class BancoDoBrasilProvider : BankProvider
+    public sealed class BancoDoBrasilProvider : IBankProvider
     {
-        private readonly BancoDoBrasilApi _repository;
+        private readonly IBancoDoBrasilRepository _repository;
 
-        public BancoDoBrasilProvider(BancoDoBrasilApi repository, BancoDoBrasilConnectionData connectionData) 
-            : base(Bank.BancoDoBrasil, connectionData)
+        public BancoDoBrasilProvider(IBancoDoBrasilRepository repository) 
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public static BancoDoBrasilProvider New(BancoDoBrasilConnectionData connectionData)
+        public async Task<BankScrapeResult> GetResultAsync()
         {
-            return new BancoDoBrasilProvider(
-                new BancoDoBrasilApi(),
-                connectionData);
-        }
-
-        public override void Dispose() => _repository.Dispose();
-
-        public override async Task<BankScrapeResult> GetResultAsync()
-        {
-            var bbConnectionData = ConnectionData as BancoDoBrasilConnectionData;
-
-            var loginResult = await _repository.LoginAsync(
-                bbConnectionData.Agency,
-                bbConnectionData.Account,
-                bbConnectionData.ElectronicPassword);
+            var loginResult = await _repository.GetLoginAsync();
 
             var balance = await _repository.GetBalanceAsync();
 
-            await _repository.GetOtherData();
+            //await _repository.GetOtherData();
 
             var segment = loginResult.Segmento;
             var type = AccountType.Unknown;
@@ -50,8 +34,8 @@ namespace BankScrapper.BB
 
             var account = new Account
             {
-                Agency = bbConnectionData.Agency,
-                Number = bbConnectionData.Account,
+                Agency = loginResult.DependenciaOrigem,
+                Number = loginResult.NumeroContratoOrigem,
                 Type = type,
                 CurrentBalance = balance
             };

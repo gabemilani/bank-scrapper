@@ -5,6 +5,6 @@ namespace BankScrapper.Nubank
     [DebuggerStepThrough]
     internal static class NubankExtensions
     {
-        public static double GetMonetaryValue(this long value) => (double)value / 100;
+        public static double ToPreciseValue(this long value) => (double)value / 100;
     }
 }

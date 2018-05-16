@@ -10,7 +10,7 @@ namespace BankScrapper.Models
 
         public string Agency { get; set; }
 
-        public double CurrentBalance { get; set; }
+        public double? CurrentBalance { get; set; }
 
         public Dictionary<string, string> ExtraInformation { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 

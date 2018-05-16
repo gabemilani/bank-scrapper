@@ -1,14 +1,9 @@
-﻿using BankScrapper.Models;
-using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace BankScrapper
 {
-    public interface IBankProvider : IDisposable
+    public interface IBankProvider
     {
-        Bank Bank { get; }
-        IBankConnectionData ConnectionData { get; }
-
         Task<BankScrapeResult> GetResultAsync();
     }
 }

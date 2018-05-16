@@ -1,11 +1,8 @@
 ﻿using BankScrapper.BB;
-using BankScrapper.Models;
 using BankScrapper.Nubank;
-using BankScrapper.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Configuration;
-using System.Text;
 
 namespace BankScrapper.Playground
 {
@@ -28,8 +25,9 @@ namespace BankScrapper.Playground
 
             Console.WriteLine("Realizando conexão com o Nubank. Por favor, aguarde...");
 
-            using (var provider = new NubankProvider(new NubankApi(), connectionData))
+            using (var repository = new NubankApiRepository(connectionData))
             {
+                var provider = new NubankProvider(repository);
                 var result = await provider.GetResultAsync();
                 Console.WriteLine("Dados coletados a partir do Nubank:");
                 PrintResult(result);
@@ -61,8 +59,9 @@ namespace BankScrapper.Playground
 
             Console.WriteLine("Realizando conexão com o Banco do Brasil. Por favor, aguarde...");
 
-            using (var bbProvider = BancoDoBrasilProvider.New(connectionData))
+            using (var bbRepository = new BancoDoBrasilApiRepository(connectionData))
             {
+                var bbProvider = new BancoDoBrasilProvider(bbRepository);
                 var result = await bbProvider.GetResultAsync();
                 Console.WriteLine("Dados coletados a partir do Banco do Brasil:");
                 PrintResult(result);

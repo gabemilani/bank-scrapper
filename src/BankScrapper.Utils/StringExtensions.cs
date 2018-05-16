@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace BankScrapper.Utils
 {
@@ -17,6 +18,9 @@ namespace BankScrapper.Utils
 
         public static bool IsNullOrEmpty(this string source) 
             => string.IsNullOrEmpty(source);
+
+        public static DateTime ToDateTime(this string source, string format) =>
+            DateTime.ParseExact(source, format, CultureInfo.InvariantCulture);
 
         public static double ToDouble(this string source) 
             => double.TryParse(source, out var result) ? result : default(double);

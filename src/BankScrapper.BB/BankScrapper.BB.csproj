@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BancoDoBrasilApi.cs" />
+    <Compile Include="BancoDoBrasilApiRepository.cs" />
     <Compile Include="BancoDoBrasilConnectionData.cs" />
     <Compile Include="BancoDoBrasilProvider.cs" />
     <Compile Include="DTOs\BalanceDTO.cs" />

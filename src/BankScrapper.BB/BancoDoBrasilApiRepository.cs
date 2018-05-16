@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 
 namespace BankScrapper.BB
 {
-    public sealed class BancoDoBrasilApi : BaseApi
+    public sealed class BancoDoBrasilApiRepository : BaseApi, IBancoDoBrasilRepository
     {
         private const string BaseApiUrl = "https://mobi.bb.com.br/mov-centralizador/";
 
         private readonly string _deviceId;
         private readonly string _ida;
+        private readonly BancoDoBrasilConnectionData _connectionData;
 
         private string _idh;
         private string _nickname;
 
-        public BancoDoBrasilApi() 
+        public BancoDoBrasilApiRepository(BancoDoBrasilConnectionData connectionData) 
             : base(BaseApiUrl)
         {
+            _connectionData = connectionData ?? throw new ArgumentNullException(nameof(connectionData));
             _ida = "00000000000000000000000000000000";
             _deviceId = "000000000000000";
             _idh = "";
@@ -96,7 +98,7 @@ namespace BankScrapper.BB
             return result.ToObject<LayoutDTO>();
         }
 
-        public async Task<LoginDTO> LoginAsync(string agency, string account, string password)
+        public async Task<LoginDTO> GetLoginAsync()
         {
             await InitializeAsync();
 
@@ -105,10 +107,10 @@ namespace BankScrapper.BB
             var values = new Dictionary<string, string>
             {
                 { "idh", _idh },
-                { "senhaConta", password },
+                { "senhaConta", _connectionData.ElectronicPassword },
                 { "apelido", _nickname },
-                { "dependenciaOrigem", agency },
-                { "numeroContratoOrigem",  account },
+                { "dependenciaOrigem", _connectionData.Agency },
+                { "numeroContratoOrigem",  _connectionData.Account },
                 { "idRegistroNotificacao", "" },
                 { "idDispositivo", _deviceId },
                 { "titularidade", "1" }
@@ -136,6 +138,9 @@ namespace BankScrapper.BB
             };
 
             _idh = await PostUrlEncodedWithStringResponseAsync("hash", values);
+
+            if (_idh.IsNullOrEmpty())
+                throw new Exception("Não foi possível estabelecer conexão com o Banco do Brasil");
         }
 
         private async Task AfterLoginAsync()

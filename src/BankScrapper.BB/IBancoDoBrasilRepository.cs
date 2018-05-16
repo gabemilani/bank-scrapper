@@ -10,6 +10,6 @@ namespace BankScrapper.BB
 
         Task<LayoutDTO> GetExtractLayoutAsync();
 
-        Task<LoginDTO> LoginAsync(string agency, string account, string password);
+        Task<LoginDTO> GetLoginAsync();
     }
 }

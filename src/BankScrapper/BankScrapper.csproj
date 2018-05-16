@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BankProvider.cs" />
     <Compile Include="Enums\Bank.cs" />
     <Compile Include="Enums\AccountType.cs" />
     <Compile Include="Enums\BillState.cs" />

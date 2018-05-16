@@ -49,10 +49,12 @@
     <Compile Include="DTOs\CustomerDTOs.cs" />
     <Compile Include="DTOs\DiscoveryDTO.cs" />
     <Compile Include="DTOs\LinkDTO.cs" />
-    <Compile Include="NubankApi.cs" />
+    <Compile Include="DTOs\TransactionsDTO.cs" />
+    <Compile Include="NubankApiRepository.cs" />
     <Compile Include="NubankConnectionData.cs" />
     <Compile Include="NubankExtensions.cs" />
     <Compile Include="NubankProvider.cs" />
+    <Compile Include="INubankRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
