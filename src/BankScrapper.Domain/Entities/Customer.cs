@@ -8,7 +8,7 @@ namespace BankScrapper.Domain.Entities
 {
     public class Customer : IEntity
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public Address Address { get; set; }
 

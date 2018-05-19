@@ -1,13 +1,12 @@
 ﻿using BankScrapper.Domain.Interfaces;
 using BankScrapper.Enums;
-using System;
 using System.Collections.Generic;
 
 namespace BankScrapper.Domain.Entities
 {
     public class Card : IEntity
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public string Number { get; set; }
 
@@ -18,6 +17,10 @@ namespace BankScrapper.Domain.Entities
         public int ExpiryMonth { get; set; }
 
         public string PrintedName { get; set; }
+
+        public int AccountId { get; set; }
+
+        public Account Account { get; set; }
 
         public Dictionary<string, string> ExtraInformation { get; set; }
     }

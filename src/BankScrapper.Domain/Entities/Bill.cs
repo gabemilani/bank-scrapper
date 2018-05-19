@@ -7,7 +7,7 @@ namespace BankScrapper.Domain.Entities
 {
     public class Bill : IEntity
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public DateTime CloseDate { get; set; }
 
@@ -18,5 +18,9 @@ namespace BankScrapper.Domain.Entities
         public BillState State { get; set; }
 
         public Dictionary<string, string> ExtraInformation { get; set; }
+
+        public Account Account { get; set; }
+
+        public int AccountId { get; set; }
     }
 }

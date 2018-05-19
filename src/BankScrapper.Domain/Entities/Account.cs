@@ -7,7 +7,7 @@ namespace BankScrapper.Domain.Entities
 {
     public class Account : IEntity
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public DateTime? CreationDate { get; set; }
 
@@ -24,5 +24,7 @@ namespace BankScrapper.Domain.Entities
         public Bank Bank { get; set; }
 
         public Customer Customer { get; set; }
+
+        public int CustomerId { get; set; }
     }
 }

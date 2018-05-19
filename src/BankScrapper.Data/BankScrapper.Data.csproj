@@ -82,6 +82,10 @@
       <Project>{473BA71A-F006-4B4C-B580-56F32A74513A}</Project>
       <Name>BankScrapper.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BankScrapper\BankScrapper.csproj">
+      <Project>{1416AFDD-4235-49F7-A301-BF0EAF2700ED}</Project>
+      <Name>BankScrapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace BankScrapper.Domain.Interfaces
 {
@@ -7,6 +6,6 @@ namespace BankScrapper.Domain.Interfaces
     {
         Task AddAsync(TEntity entity);
 
-        TEntity FindById(int id);
+        Task<TEntity> FindByIdAsync(int id);
     }
 }

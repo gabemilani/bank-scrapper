@@ -22,9 +22,6 @@ namespace BankScrapper.Data.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public TEntity FindById(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<TEntity> FindByIdAsync(int id) => _dbSet.FindAsync(id);
     }
 }
