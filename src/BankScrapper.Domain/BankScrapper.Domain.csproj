@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\IContext.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAccountsRepository.cs" />
     <Compile Include="Repositories\IBillsRepository.cs" />
@@ -56,10 +57,9 @@
     <Compile Include="Repositories\ICategoriesRepository.cs" />
     <Compile Include="Repositories\ICustomersRepository.cs" />
     <Compile Include="Repositories\ITransactionsRepository.cs" />
+    <Compile Include="Services\BankScrapperService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BankScrapper.BB\BankScrapper.BB.csproj">
       <Project>{90d53d8a-988d-4268-9c32-f904429e2376}</Project>

@@ -1,5 +1,4 @@
 ﻿using BankScrapper.Models;
-using System.Collections.Generic;
 
 namespace BankScrapper
 {
@@ -14,7 +13,5 @@ namespace BankScrapper
         public Transaction[] Transactions { get; set; }
 
         public Card[] Cards { get; set; }
-
-        public Dictionary<string, string> ExtraInformation { get; set; }
     }
 }

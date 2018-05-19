@@ -16,6 +16,8 @@ namespace BankScrapper.BB
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
+        public void Dispose() => _repository.Dispose();
+
         public async Task<BankScrapeResult> GetResultAsync()
         {
             var loginResult = await _repository.GetLoginAsync();

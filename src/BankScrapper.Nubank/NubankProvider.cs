@@ -41,6 +41,8 @@ namespace BankScrapper.Nubank
 
         public Bank Bank { get; }
 
+        public void Dispose() => _repository.Dispose();
+
         public async Task<BankScrapeResult> GetResultAsync()
         {
             return new BankScrapeResult
@@ -198,7 +200,7 @@ namespace BankScrapper.Nubank
                 {
                     var transaction = new Transaction
                     {
-                        Category = transactionDTO.Category,
+                        Category = transactionDTO.Category.Capitalize(),
                         Date = transactionDTO.Time,
                         Amount = transactionDTO.Amount.ToPreciseValue()
                     };

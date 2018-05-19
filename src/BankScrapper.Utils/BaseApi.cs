@@ -35,8 +35,7 @@ namespace BankScrapper.Utils
 
         protected HttpRequestHeaders DefaultRequestHeaders => _httpClient.DefaultRequestHeaders;
 
-        public void Dispose() => 
-            _httpClient.Dispose();
+        public void Dispose() => _httpClient.Dispose();
 
         protected async Task<T> GetAsync<T>(string relativeUrl)
         {

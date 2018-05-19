@@ -8,6 +8,8 @@ namespace BankScrapper.Nubank
 
         public string Password { get; set; }
 
+        public Bank Bank => Bank.Nubank;
+
         public bool IsValid()
         {
             if (CPF.IsNullOrEmpty() || Password.IsNullOrEmpty())

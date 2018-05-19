@@ -10,6 +10,8 @@ namespace BankScrapper.BB
 
         public string ElectronicPassword { get; set; }
 
+        public Bank Bank => Bank.BancoDoBrasil;
+
         public bool IsValid()
         {
             if (Agency?.Length != 6)

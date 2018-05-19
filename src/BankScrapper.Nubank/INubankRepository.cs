@@ -1,9 +1,10 @@
 ﻿using BankScrapper.Nubank.DTOs;
+using System;
 using System.Threading.Tasks;
 
 namespace BankScrapper.Nubank
 {
-    public interface INubankRepository
+    public interface INubankRepository : IDisposable
     {
         Task<AccountDTO> GetAccountAsync();
 

@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace BankScrapper
 {
-    public interface IBankProvider
+    public interface IBankProvider : IDisposable
     {
         Task<BankScrapeResult> GetResultAsync();
     }
