@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace BankScrapper.Domain.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : IEntity
     {
-        void Add(TEntity entity);
+        Task AddAsync(TEntity entity);
 
-        TEntity FindById(Guid id);
+        TEntity FindById(int id);
     }
 }
