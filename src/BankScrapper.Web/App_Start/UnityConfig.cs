@@ -25,7 +25,7 @@ namespace BankScrapper.Web
         public static void RegisterTypes(IUnityContainer container)
         {
             container.RegisterSingleton<BankScrapperDbContext>(
-                new [] { new InjectionConstructor(new object[] { "BankScrapperDb" }) });
+                new[] { new InjectionConstructor(new object[] { "BankScrapperDb" }) });
 
             container.RegisterSingleton<IContext, BankScrapperContext>();
 
