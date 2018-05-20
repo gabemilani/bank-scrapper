@@ -4,7 +4,7 @@ using BankScrapper.Domain.Interfaces;
 using BankScrapper.Enums;
 using System.Threading.Tasks;
 
-namespace BankScrapper.Domain.Services.Entities
+namespace BankScrapper.Domain.Services
 {
     public sealed class AccountsService : EntitiesService<Account>, IService
     {

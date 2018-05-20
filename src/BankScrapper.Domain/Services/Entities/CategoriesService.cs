@@ -6,7 +6,7 @@ using BankScrapper.Utils;
 using System;
 using System.Threading.Tasks;
 
-namespace BankScrapper.Domain.Services.Entities
+namespace BankScrapper.Domain.Services
 {
     public sealed class CategoriesService : EntitiesService<Category>, IService
     {

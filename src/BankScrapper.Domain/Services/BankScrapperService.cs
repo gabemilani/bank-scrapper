@@ -35,7 +35,7 @@ namespace BankScrapper.Domain.Services
 
         }
 
-        private async Task<BankScrapeResult> GetBankDataAsync(IBankConnectionData connectionData)
+        public async Task<BankScrapeResult> GetBankDataAsync(IBankConnectionData connectionData)
         {
             BankScrapeResult result;
 

@@ -1,11 +1,10 @@
 ﻿using BankScrapper.Domain.Entities;
 using BankScrapper.Domain.Exceptions;
 using BankScrapper.Domain.Interfaces;
-using BankScrapper.Domain.Repositories;
 using BankScrapper.Enums;
 using System.Threading.Tasks;
 
-namespace BankScrapper.Domain.Services.Entities
+namespace BankScrapper.Domain.Services
 {
     public sealed class CardsService : EntitiesService<Card>, IService
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace BankScrapper.Domain.Services.Entities
+namespace BankScrapper.Domain.Services
 {
     public abstract class EntitiesService<TEntity> where TEntity : class, IEntity
     {

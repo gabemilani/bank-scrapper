@@ -5,7 +5,7 @@ using BankScrapper.Domain.Repositories;
 using BankScrapper.Utils;
 using System.Threading.Tasks;
 
-namespace BankScrapper.Domain.Services.Entities
+namespace BankScrapper.Domain.Services
 {
     public sealed class CustomersService : EntitiesService<Customer>, IService
     {
