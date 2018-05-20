@@ -40,12 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\CollectionAttribute.cs" />
     <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\Bill.cs" />
     <Compile Include="Entities\Card.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Transaction.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Interfaces\IContext.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
@@ -58,6 +60,13 @@
     <Compile Include="Repositories\ICustomersRepository.cs" />
     <Compile Include="Repositories\ITransactionsRepository.cs" />
     <Compile Include="Services\BankScrapperService.cs" />
+    <Compile Include="Services\Entities\AccountsService.cs" />
+    <Compile Include="Services\Entities\BillsService.cs" />
+    <Compile Include="Services\Entities\CardsService.cs" />
+    <Compile Include="Services\Entities\CategoriesService.cs" />
+    <Compile Include="Services\Entities\CustomersService.cs" />
+    <Compile Include="Services\Entities\EntitiesService.cs" />
+    <Compile Include="Services\Entities\TransactionsService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

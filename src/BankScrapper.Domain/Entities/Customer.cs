@@ -1,4 +1,5 @@
-﻿using BankScrapper.Domain.Interfaces;
+﻿using BankScrapper.Domain.Attributes;
+using BankScrapper.Domain.Interfaces;
 using BankScrapper.Enums;
 using BankScrapper.ValueObjects;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 
 namespace BankScrapper.Domain.Entities
 {
+    [Collection("Customers")]
     public class Customer : IEntity
     {
         public int Id { get; set; }
@@ -14,7 +16,7 @@ namespace BankScrapper.Domain.Entities
 
         public Address BillingAddress { get; set; }
 
-        public string CPF { get; set; }
+        public string Cpf { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
 

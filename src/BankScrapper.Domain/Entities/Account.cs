@@ -1,10 +1,12 @@
-﻿using BankScrapper.Domain.Interfaces;
+﻿using BankScrapper.Domain.Attributes;
+using BankScrapper.Domain.Interfaces;
 using BankScrapper.Enums;
 using System;
 using System.Collections.Generic;
 
 namespace BankScrapper.Domain.Entities
 {
+    [Collection("Accounts")]
     public class Account : IEntity
     {
         public int Id { get; set; }

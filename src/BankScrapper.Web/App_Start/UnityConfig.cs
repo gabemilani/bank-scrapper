@@ -1,6 +1,8 @@
 using BankScrapper.Data;
 using BankScrapper.Domain.Interfaces;
+using BankScrapper.Utils;
 using System;
+using System.Linq;
 using Unity;
 using Unity.Injection;
 
@@ -26,6 +28,13 @@ namespace BankScrapper.Web
                 new [] { new InjectionConstructor(new object[] { "BankScrapperDb" }) });
 
             container.RegisterSingleton<IContext, BankScrapperContext>();
+
+            var serviceInterfaceType = typeof(IService);
+
+            serviceInterfaceType.Assembly
+                .GetTypes()
+                .Where(t => t.IsClass && !t.IsAbstract && serviceInterfaceType.IsAssignableFrom(t))
+                .ForEach(t => container.RegisterType(t));
         }
     }
 }
