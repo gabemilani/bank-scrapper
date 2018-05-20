@@ -7,5 +7,7 @@ namespace BankScrapper.Domain.Interfaces
         Task AddAsync(TEntity entity);
 
         Task<TEntity> FindByIdAsync(int id);
+
+        Task<TEntity[]> FindAllAsync();
     }
 }

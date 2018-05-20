@@ -39,6 +39,7 @@ namespace BankScrapper.Data
             config.Property(a => a.Bank).IsRequired();
             config.Property(a => a.Type).IsRequired();
             config.HasOptional(a => a.Customer).WithMany().HasForeignKey(a => a.CustomerId);
+            config.ConfigTable();
         }
 
         private void CreateBillModel(DbModelBuilder modelBuilder)
@@ -50,6 +51,7 @@ namespace BankScrapper.Data
             config.Property(b => b.State).IsRequired();
             config.Property(b => b.Total).IsRequired();
             config.HasRequired(b => b.Account).WithMany().HasForeignKey(b => b.AccountId);
+            config.ConfigTable();
         }
 
         private void CreateCardModel(DbModelBuilder modelBuilder)
@@ -59,21 +61,26 @@ namespace BankScrapper.Data
             config.Property(c => c.PrintedName).IsRequired();
             config.Property(c => c.Type).IsRequired();
             config.HasRequired(c => c.Account).WithMany().HasForeignKey(c => c.AccountId);
+            config.ConfigTable();
         }
 
         private void CreateCategoryModel(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Category>()
-                .HasKey(c => c.Id)
-                .Property(c => c.Name).IsRequired();
+            var config = modelBuilder.Entity<Category>();
+            config.HasKey(c => c.Id);
+            config.HasIndex(c => c.Name).IsUnique();
+            config.Property(c => c.Name).IsRequired();
+            config.ConfigTable();
         }
 
         private void CreateCustomerModel(DbModelBuilder modelBuilder)
         {
             var config = modelBuilder.Entity<Customer>();
             config.HasKey(c => c.Id);
+            config.HasIndex(c => c.Cpf).IsUnique();
             config.Property(c => c.Name).IsRequired();
-            config.Property(c => c.CPF).IsRequired();
+            config.Property(c => c.Cpf).IsRequired();
+            config.ConfigTable();
         }
 
         private void CreateTransactionModel(DbModelBuilder modelBuilder)
@@ -84,6 +91,7 @@ namespace BankScrapper.Data
             config.Property(t => t.Date).IsRequired();
             config.HasRequired(t => t.Account).WithMany().HasForeignKey(t => t.AccountId);
             config.HasOptional(t => t.Category).WithMany().HasForeignKey(t => t.CategoryId);
+            config.ConfigTable();
         }
     }
 }
