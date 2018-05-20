@@ -15,13 +15,15 @@ namespace BankScrapper.Domain.Services.Entities
             _repository = GetRepository(context) ?? throw new Exception($"Repositório da entidade \"{typeof(TEntity).Name}\" não encontrado");
         }
 
-        public Task<TEntity> GetById(int id) => _repository.FindByIdAsync(id);
-
         public async Task AddAsync(TEntity entity)
         {
             await ValidateAsync(entity);
             await _repository.AddAsync(entity);
         }
+
+        public Task<TEntity[]> GetAllAsync() => _repository.FindAllAsync();
+
+        public Task<TEntity> GetByIdAsync(int id) => _repository.FindByIdAsync(id);
 
         protected virtual Task ValidateAsync(TEntity entity, bool isNew = true)
         {
