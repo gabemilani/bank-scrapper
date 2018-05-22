@@ -1,18 +1,36 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    
 }
 
-/* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    display: flex;
+    flex-direction: column;
+    max-height: 88.5vh;
+    overflow-y: auto;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
+form {
+    align-self: center;
+    padding-bottom: 50px;
+}
+
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 500px;
 }
 
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.jumbotron {
+    text-align: center;
+}
+
+#bb-form, #nubank-form, #btn-submit {
+    display: none;
+}

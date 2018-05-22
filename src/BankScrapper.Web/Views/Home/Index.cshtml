@@ -1,7 +1,63 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Busca";
 }
 
-<h2>Index</h2>
+@section NavBarItems {
+    <li class="nav-item active">
+        @Html.ActionLink("Busca", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Resultados", "Index", "Results", new { area = "" }, new { @class = "nav-link" })
+    </li>
+}
+
+<div class="jumbotron">
+    <h1 class="display-4">Buscar dados dos bancos!</h1>
+    <p class="lead">Essa é uma aplicação simples que buscará os dados da sua conta no banco selecionado.</p>
+</div>
+
+<form>
+    <div class="form-group">
+        <label for="bankSelect">Banco</label>
+        <select class="form-control" id="bankSelect">
+            <option>Selecione</option>
+            <option value="2">Nubank</option>
+            <option value="1">Banco do Brasil</option>
+        </select>
+    </div>
+
+    <div id="nubank-form">
+        <div class="form-group">
+            <label for="inputCpf">CPF</label>
+            <input type="text" class="form-control" id="inputCpf" aria-describedby="emailHelp" placeholder="Escreva o CPF da sua conta">
+            <small id="passwordHelp" class="form-text text-muted">Apenas números</small>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword">Senha</label>
+            <input type="password" class="form-control" id="inputPassword" placeholder="Escreva a senha da sua conta">
+            <small id="passwordHelp" class="form-text text-muted">Sua senha só será utilizada para buscarmos as informações do Nubank</small>
+        </div>
+    </div>
+
+    <div id="bb-form">
+        <div class="form-group">
+            <label for="inputAgency">Agência</label>
+            <input type="text" class="form-control" id="inputAgency" aria-describedby="emailHelp" placeholder="Escreva a agência da sua conta">
+            <small id="agencyHelp" class="form-text text-muted">Número da agência mais o dígito verificador</small>
+        </div>
+        <div class="form-group">
+            <label for="inputNumber">Número</label>
+            <input type="text" class="form-control" id="inputNumber" aria-describedby="emailHelp" placeholder="Escreva o número da sua conta">
+            <small id="accountHelp" class="form-text text-muted">Número da conta mais o dígito verificador</small>
+        </div>
+        <div class="form-group">
+            <label for="inputElectronicPassword">Senha Eletrônica</label>
+            <input type="password" class="form-control" id="inputElectronicPassword" placeholder="Escreva a senha eletrônica da sua conta">
+            <small id="electronicPasswordHelp" class="form-text text-muted">Sua senha só será utilizada para buscarmos as informações do Banco do Brasil</small>
+        </div>
+    </div>
+
+    <button id="btn-submit" type="submit" class="btn btn-primary">Buscar os dados</button>
+</form>
 

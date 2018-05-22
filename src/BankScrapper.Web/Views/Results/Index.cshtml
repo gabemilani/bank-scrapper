@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Resultados";
+}
+
+@section NavBarItems {
+    <li class="nav-item">
+        @Html.ActionLink("Busca", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+    </li>
+    <li class="nav-item active">
+        @Html.ActionLink("Resultados", "Index", "Results", new { area = "" }, new { @class = "nav-link" })
+    </li>
+}
+
+<h2>Resultados</h2>
+
