@@ -1,5 +1,5 @@
 ﻿body {
-    
+    height: 100vh;
 }
 
 .body-content {
@@ -18,7 +18,7 @@ input,
 select,
 textarea {
     max-width: 500px;
-}
+} 
 
 footer {
     position: absolute;
@@ -33,4 +33,42 @@ footer {
 
 #bb-form, #nubank-form, #btn-submit {
     display: none;
+}
+
+#overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1;
+    opacity: 0.4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+#overlay-text {
+    color: #fff;
+    margin-top: 15px;
+}
+
+#loader {
+    border: 16px solid #f3f3f3; 
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

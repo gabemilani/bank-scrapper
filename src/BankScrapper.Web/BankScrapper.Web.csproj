@@ -140,6 +140,7 @@
     <Content Include="App_Data\BankScrapper.Db.mdf" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\jquery.mask.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
