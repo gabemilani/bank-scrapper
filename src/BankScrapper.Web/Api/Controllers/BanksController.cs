@@ -42,7 +42,7 @@ namespace BankScrapper.Web.Api.Controllers
 
             await _appService.ScrapeBankDataAsync(connectionData);
 
-            return Ok();
+            return Ok(true);
         }
     }
 }
