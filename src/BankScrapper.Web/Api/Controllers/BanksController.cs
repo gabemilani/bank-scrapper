@@ -1,7 +1,7 @@
 ﻿using BankScrapper.BB;
-using BankScrapper.Domain.Services;
 using BankScrapper.Nubank;
 using BankScrapper.Utils;
+using BankScrapper.Web.AppServices;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Threading.Tasks;
@@ -12,11 +12,11 @@ namespace BankScrapper.Web.Api.Controllers
     [RoutePrefix("api/banks")]
     public class BanksController : ApiController
     {
-        private readonly BankScrapperService _service;
+        private readonly BankScrapperAppService _appService;
 
-        public BanksController(BankScrapperService service) 
+        public BanksController(BankScrapperAppService appService) 
         {
-            _service = service ?? throw new ArgumentNullException(nameof(service));
+            _appService = appService ?? throw new ArgumentNullException(nameof(appService));
         }
 
         [HttpPost, Route("scrape")]
@@ -40,9 +40,9 @@ namespace BankScrapper.Web.Api.Controllers
                     return BadRequest($"Banco não suportado: \"{bank.GetDescription()}\"");
             }
 
-            var result = await _service.GetBankDataAsync(connectionData);
+            await _appService.ScrapeBankDataAsync(connectionData);
 
-            return Ok(result);
+            return Ok();
         }
     }
 }

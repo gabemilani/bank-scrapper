@@ -7,9 +7,9 @@ namespace BankScrapper.Web.Models.Views
 {
     public class CustomerViewModel
     {
-        public Address Address { get; set; }
+        public string Address { get; set; }
 
-        public Address BillingAddress { get; set; }
+        public string BillingAddress { get; set; }
 
         public string Cpf { get; set; }
 

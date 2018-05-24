@@ -51,7 +51,8 @@ namespace BankScrapper.Nubank
                 Account = await GetAccountAsync(),
                 Customer = await GetCustomerAsync(),
                 Cards = await GetCardsAsync(),
-                Transactions = await GetTransactionsAsync()
+                Transactions = await GetTransactionsAsync(),
+                Bills = await GetBillsAsync()
             };
         }
 
@@ -171,7 +172,7 @@ namespace BankScrapper.Nubank
                     State = customerDTO.BillingAddressState,
                     Street = $"{customerDTO.BillingAddressLine1}, {customerDTO.BillingAddressLine2}"
                 },
-                CPF = customerDTO.CPF,
+                Cpf = customerDTO.CPF,
                 DateOfBirth = dateOfBirth,
                 Email = customerDTO.Email,
                 Gender = gender,

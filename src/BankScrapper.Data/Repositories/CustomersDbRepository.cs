@@ -51,7 +51,7 @@ namespace BankScrapper.Data.Repositories
         {
             return _dbSet
                 .SqlQuery(
-                    $"SELECT * FROM {_tableName} WHERE {nameof(Customer.Cpf)} = {CpfParameter}",
+                    $"SELECT * FROM dbo.{_tableName} WHERE {nameof(Customer.Cpf)} = {CpfParameter}",
                     new SqlParameter(CpfParameter, cpf))
                 .FirstOrDefaultAsync();
         }

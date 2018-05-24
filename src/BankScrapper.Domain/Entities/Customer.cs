@@ -1,7 +1,6 @@
 ﻿using BankScrapper.Domain.Attributes;
 using BankScrapper.Domain.Interfaces;
 using BankScrapper.Enums;
-using BankScrapper.ValueObjects;
 using System;
 using System.Collections.Generic;
 
@@ -12,9 +11,9 @@ namespace BankScrapper.Domain.Entities
     {
         public int Id { get; set; }
 
-        public Address Address { get; set; }
+        public string Address { get; set; }
 
-        public Address BillingAddress { get; set; }
+        public string BillingAddress { get; set; }
 
         public string Cpf { get; set; }
 

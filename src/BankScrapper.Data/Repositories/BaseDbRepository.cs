@@ -41,7 +41,7 @@ namespace BankScrapper.Data.Repositories
 
         protected Task<TEntity[]> FindByQueryAsync(StringBuilder conditionsBuilder, IEnumerable<SqlParameter> parameters)
         {
-            var query = $"SELECT * FROM {_tableName}";
+            var query = $"SELECT * FROM dbo.{_tableName}";
             if (conditionsBuilder.Length > 0)
                 query += $" WHERE {conditionsBuilder.ToString()}";
 

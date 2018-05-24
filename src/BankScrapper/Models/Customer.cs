@@ -11,7 +11,7 @@ namespace BankScrapper.Models
 
         public Address BillingAddress { get; set; }
 
-        public string CPF { get; set; }
+        public string Cpf { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
 

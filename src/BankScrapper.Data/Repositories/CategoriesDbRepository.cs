@@ -18,7 +18,7 @@ namespace BankScrapper.Data.Repositories
         {
             return _dbSet
                 .SqlQuery(
-                    $"SELECT * FROM {_tableName} WHERE {nameof(Category.Name)} = {NameParameter}",
+                    $"SELECT * FROM dbo.{_tableName} WHERE {nameof(Category.Name)} = {NameParameter}",
                     new SqlParameter(NameParameter, name))
                 .FirstOrDefaultAsync();
         }

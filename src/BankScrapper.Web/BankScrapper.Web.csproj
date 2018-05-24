@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\Controllers\BanksController.cs" />
+    <Compile Include="AppServices\BankScrapperAppService.cs" />
     <Compile Include="AppServices\IAppService.cs" />
     <Compile Include="AppServices\ResultsAppService.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />

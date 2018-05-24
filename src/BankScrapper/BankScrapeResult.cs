@@ -13,5 +13,7 @@ namespace BankScrapper
         public Transaction[] Transactions { get; set; }
 
         public Card[] Cards { get; set; }
+
+        public Bill[] Bills { get; set; }
     }
 }

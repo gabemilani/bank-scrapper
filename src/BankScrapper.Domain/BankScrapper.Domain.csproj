@@ -59,14 +59,13 @@
     <Compile Include="Repositories\ICategoriesRepository.cs" />
     <Compile Include="Repositories\ICustomersRepository.cs" />
     <Compile Include="Repositories\ITransactionsRepository.cs" />
-    <Compile Include="Services\BankScrapperService.cs" />
-    <Compile Include="Services\Entities\AccountsService.cs" />
-    <Compile Include="Services\Entities\BillsService.cs" />
-    <Compile Include="Services\Entities\CardsService.cs" />
-    <Compile Include="Services\Entities\CategoriesService.cs" />
-    <Compile Include="Services\Entities\CustomersService.cs" />
-    <Compile Include="Services\Entities\EntitiesService.cs" />
-    <Compile Include="Services\Entities\TransactionsService.cs" />
+    <Compile Include="Services\AccountsService.cs" />
+    <Compile Include="Services\BillsService.cs" />
+    <Compile Include="Services\CardsService.cs" />
+    <Compile Include="Services\CategoriesService.cs" />
+    <Compile Include="Services\CustomersService.cs" />
+    <Compile Include="Services\EntitiesService.cs" />
+    <Compile Include="Services\TransactionsService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

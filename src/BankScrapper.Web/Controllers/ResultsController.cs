@@ -7,16 +7,16 @@ namespace BankScrapper.Web.Controllers
 {
     public class ResultsController : Controller
     {
-        private readonly ResultsAppService _service;
+        private readonly ResultsAppService _appService;
 
-        public ResultsController(ResultsAppService service)
+        public ResultsController(ResultsAppService appService)
         {
-            _service = service ?? throw new ArgumentNullException(nameof(service));
+            _appService = appService ?? throw new ArgumentNullException(nameof(appService));
         }
 
         public async Task<ActionResult> Index()
         {
-            var accounts = await _service.GetEverythingAsync();
+            var accounts = await _appService.GetEverythingAsync();
 
             return View(accounts);
         }

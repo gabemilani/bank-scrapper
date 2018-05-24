@@ -23,6 +23,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankScrapper.Data", "src\Ba
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankScrapper.Web", "src\BankScrapper.Web\BankScrapper.Web.csproj", "{F4C9EC03-DE9E-4F1A-B973-7860721EAE6F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "queries", "queries", "{E16C337B-B302-477A-8B1D-0432858FF53B}"
+	ProjectSection(SolutionItems) = preProject
+		queries\drop-all.sql = queries\drop-all.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
