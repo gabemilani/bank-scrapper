@@ -11,10 +11,10 @@ namespace BankScrapper.Data
         public static void ConfigTable<TEntity>(this EntityTypeConfiguration<TEntity> config) where TEntity : class, IEntity
         {
             var collectionAttribute = typeof(TEntity).GetCustomAttribute<CollectionAttribute>();
-            if (collectionAttribute != null)
-                config.ToTable(collectionAttribute.Name);
+            if (collectionAttribute == null)
+                throw new Exception($"A entidade \"{typeof(TEntity).Name}\" não implementa o atributo Collection");
 
-            throw new Exception($"A entidade \"{typeof(TEntity).Name}\" não implementa o atributo Collection");
+            config.ToTable(collectionAttribute.Name);
         }        
     }
 }

@@ -27,6 +27,6 @@ namespace BankScrapper.Domain.Entities
 
         public Customer Customer { get; set; }
 
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
     }
 }

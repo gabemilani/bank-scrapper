@@ -77,7 +77,6 @@ namespace BankScrapper.Data
         {
             var config = modelBuilder.Entity<Customer>();
             config.HasKey(c => c.Id);
-            config.HasIndex(c => c.Cpf).IsUnique();
             config.Property(c => c.Name).IsRequired();
             config.Property(c => c.Cpf).IsRequired();
             config.ConfigTable();

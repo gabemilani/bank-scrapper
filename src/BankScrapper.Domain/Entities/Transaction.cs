@@ -16,7 +16,7 @@ namespace BankScrapper.Domain.Entities
 
         public Category Category { get; set; }
 
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
         public DateTime Date { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using BankScrapper.Domain.Entities;
 using BankScrapper.Domain.Exceptions;
 using BankScrapper.Domain.Interfaces;
+using BankScrapper.Domain.Repositories;
 using BankScrapper.Enums;
 using System;
 using System.Threading.Tasks;
@@ -9,9 +10,16 @@ namespace BankScrapper.Domain.Services
 {
     public sealed class BillsService : EntitiesService<Bill>, IService
     {
+        private IBillsRepository _billsRepository;
+
         public BillsService(IContext context) : base(context)
         {
         }
+
+        private IBillsRepository BillsRepository => _billsRepository ?? (_billsRepository = _repository as IBillsRepository);
+
+        public Task<Bill[]> GetManyAsync(int? accountId = null, BillState? state = null, DateTime? fromDate = null, DateTime? toDate = null) =>
+            BillsRepository.FindAsync(accountId, state, fromDate, toDate);
 
         protected override async Task ValidateAsync(Bill bill, bool isNew = true)
         {
