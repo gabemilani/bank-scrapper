@@ -52,12 +52,13 @@ namespace BankScrapper.BB
             {
                 foreach (var session in sessions.Where(s => s.Tipo.EqualsIgnoreCase("sessao")))
                 {
-                    
+                    // todo
                 }
             }
 
             return new BankScrapeResult
             {
+                Bank = Bank.BancoDoBrasil,
                 Account = account,
                 Customer = customer
             };

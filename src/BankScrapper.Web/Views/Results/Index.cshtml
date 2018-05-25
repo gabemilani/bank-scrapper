@@ -42,7 +42,7 @@
 
             if (account.CurrentBalance.HasValue)
             {
-                Html.RenderPartial("Data", new KeyValuePair<string, string>("Número", account.CurrentBalance.Value.ToString("c")));
+                Html.RenderPartial("Data", new KeyValuePair<string, string>("Saldo atual", account.CurrentBalance.Value.ToString("c")));
             }
 
             Html.RenderPartial("ExtraInformation", account.ExtraInformation);
