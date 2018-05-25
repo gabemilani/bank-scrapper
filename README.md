@@ -1,8 +1,8 @@
+## **WARNING:** Using this tool without care may lead to your bank account being blocked. Use at your own risk!
+
 # bank-scrapper
 
 ASP.NET application that scrape data from brazillian banks
-
-# **WARNING:** Using this tool without care may lead to your bank account being blocked. Use at your own risk!
 
 ## Supported Banks
 
@@ -13,6 +13,6 @@ ASP.NET application that scrape data from brazillian banks
 
 ## Usage
 
-1- Start the BankScrapper.Web project
-2- Choose the bank you want to extract the data from
-3- Fill in the credentials
+#### 1- Start the BankScrapper.Web project
+#### 2- Choose the bank you want to extract the data from
+#### 3- Fill in the credentials
