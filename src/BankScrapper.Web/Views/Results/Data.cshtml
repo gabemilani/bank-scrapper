@@ -1,0 +1,8 @@
+﻿@model KeyValuePair<string, string>
+
+@if (!string.IsNullOrEmpty(Model.Value))
+{
+    <div>
+        <b>@Model.Key</b>: @Model.Value       
+    </div> 
+}

@@ -1,4 +1,5 @@
-﻿
+﻿@model BankScrapper.Web.Models.Views.AccountViewModel[]
+
 @{
     ViewBag.Title = "Resultados";
 }
@@ -17,3 +18,116 @@
     <p class="lead">Aqui você confere os dados que já foram extraidos!</p>
 </div>
 
+@for (var i = 0; i < Model.Length; i++)
+{
+    if (i > 0)
+    {
+        <hr />
+    }
+
+    var account = Model[i];
+
+    <div style="margin: 15px">
+        <h5>Conta @(i + 1)</h5>
+        @{  
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Banco", account.Bank));
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Tipo", account.Type));
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Agência", account.Agency));
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Número", account.Number));
+
+            if (account.CreationDate.HasValue)
+            {
+                Html.RenderPartial("Data", new KeyValuePair<string, string>("Data de criação", account.CreationDate.Value.ToString("dd/MM/yyyy")));
+            }
+
+            if (account.CurrentBalance.HasValue)
+            {
+                Html.RenderPartial("Data", new KeyValuePair<string, string>("Número", account.CurrentBalance.Value.ToString("c")));
+            }
+
+            Html.RenderPartial("ExtraInformation", account.ExtraInformation);
+        }
+    </div>
+
+    <div id="@("accordion"+i)">
+        @if (account.Customer != null)
+        {
+            <div class="card">
+                <div class="card-header" id="@("headingOne"+i)">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="@("#collapseOne"+i)" aria-expanded="true" aria-controls="@("collapseOne"+i)">
+                            Cliente
+                        </button>
+                    </h5>
+                    <div id="@("collapseOne"+i)" class="collapse" aria-labelledby="@("headingOne"+i)" data-parent="@("#accordion"+i)">
+                        <div class="card-body">
+                            @{
+                                Html.RenderPartial("Customer", account.Customer);
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (account.Cards?.Any() == true)
+        {
+            <div class="card">
+                <div class="card-header" id="@("headingTwo"+i)">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="@("#collapseTwo"+i)" aria-expanded="false" aria-controls="@("collapseTwo"+i)">
+                            Cartões
+                        </button>
+                    </h5>
+                </div>
+                <div id="@("collapseTwo"+i)" class="collapse" aria-labelledby="@("headingTwo"+i)" data-parent="@("#accordion"+i)">
+                    <div class="card-body">
+                        @{
+                            Html.RenderPartial("Cards", account.Cards);
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (account.Bills?.Any() == true)
+        {
+            <div class="card">
+                <div class="card-header" id="@("headingThree"+i)">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="@("#collapseThree"+i)" aria-expanded="false" aria-controls="@("collapseThree"+i)">
+                            Faturas
+                        </button>
+                    </h5>
+                </div>
+                <div id="@("collapseThree"+i)" class="collapse" aria-labelledby="@("headingThree"+i)" data-parent="@("#accordion"+i)">
+                    <div class="card-body">
+                        @{
+                            Html.RenderPartial("Bills", account.Bills);
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (account.Transactions?.Any() == true)
+        {
+            <div class="card">
+                <div class="card-header" id="@("headingFour"+i)">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="@("#collapseFour"+i)" aria-expanded="false" aria-controls="@("collapseFour"+i)">
+                            Transações
+                        </button>
+                    </h5>
+                </div>
+                <div id="@("collapseFour"+i)" class="collapse" aria-labelledby="@("headingFour"+i)" data-parent="@("#accordion"+i)">
+                    <div class="card-body">
+                        @{
+                            Html.RenderPartial("Transactions", account.Transactions);
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

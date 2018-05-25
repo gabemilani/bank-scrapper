@@ -1,5 +1,4 @@
-﻿using BankScrapper.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace BankScrapper.Web.Models.Views
@@ -12,7 +11,7 @@ namespace BankScrapper.Web.Models.Views
 
         public double Total { get; set; }
 
-        public BillState State { get; set; }
+        public string State { get; set; }
 
         public Dictionary<string, string> ExtraInformation { get; set; }
     }

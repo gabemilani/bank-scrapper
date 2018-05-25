@@ -1,0 +1,6 @@
+﻿@model IDictionary<string, string>
+
+@foreach (var keyValuePair in Model)
+{
+    Html.RenderPartial("Data", keyValuePair);
+}

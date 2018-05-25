@@ -186,6 +186,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
+    <Content Include="Views\Results\Customer.cshtml" />
+    <Content Include="Views\Results\Data.cshtml" />
+    <Content Include="Views\Results\ExtraInformation.cshtml" />
+    <Content Include="Views\Results\Cards.cshtml" />
+    <Content Include="Views\Results\Bills.cshtml" />
+    <Content Include="Views\Results\Transactions.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

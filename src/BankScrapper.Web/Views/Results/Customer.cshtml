@@ -1,0 +1,16 @@
+﻿@model BankScrapper.Web.Models.Views.CustomerViewModel
+
+@{
+    Html.RenderPartial("Data", new KeyValuePair<string, string>("Nome", Model.Name));
+    Html.RenderPartial("Data", new KeyValuePair<string, string>("Telefone", Model.Phone));
+    Html.RenderPartial("Data", new KeyValuePair<string, string>("Email", Model.Email));
+    Html.RenderPartial("Data", new KeyValuePair<string, string>("CPF", Model.Cpf));
+    if (Model.DateOfBirth.HasValue)
+    {
+        Html.RenderPartial("Data", new KeyValuePair<string, string>("Data de nascimento", Model.DateOfBirth.Value.ToString("dd/MM/yyyy")));
+    }
+    Html.RenderPartial("Data", new KeyValuePair<string, string>("Sexo", Model.Gender));
+    Html.RenderPartial("Data", new KeyValuePair<string, string>("Endereço", Model.Address));
+    Html.RenderPartial("Data", new KeyValuePair<string, string>("Endereço de cobrança", Model.BillingAddress));
+    Html.RenderPartial("ExtraInformation", Model.ExtraInformation);
+}

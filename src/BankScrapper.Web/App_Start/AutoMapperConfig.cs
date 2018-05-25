@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BankScrapper.Domain.Entities;
+using BankScrapper.Utils;
 using BankScrapper.Web.Models.Views;
 using Unity;
 
@@ -24,13 +25,18 @@ namespace BankScrapper.Web
                 configExpression.CreateMap<BankScrapper.Models.Transaction, Transaction>()
                     .ForMember(t => t.Category, opt => opt.Ignore());
 
-                configExpression.CreateMap<Account, AccountViewModel>();
+                configExpression.CreateMap<Account, AccountViewModel>()
+                    .ForMember(m => m.Bank, opt => opt.MapFrom(a => a.Bank.GetDescription()))
+                    .ForMember(m => m.Type, opt => opt.MapFrom(a => a.Type.GetDescription()));
 
-                configExpression.CreateMap<Bill, BillViewModel>();
+                configExpression.CreateMap<Bill, BillViewModel>()
+                    .ForMember(m => m.State, opt => opt.MapFrom(b => b.State.GetDescription()));
 
-                configExpression.CreateMap<Card, CardViewModel>();
+                configExpression.CreateMap<Card, CardViewModel>()
+                    .ForMember(m => m.Type, opt => opt.MapFrom(c => c.Type.GetDescription()));
 
-                configExpression.CreateMap<Customer, CustomerViewModel>();
+                configExpression.CreateMap<Customer, CustomerViewModel>()
+                    .ForMember(m => m.Gender, opt => opt.MapFrom(c => c.Gender.GetDescription()));
 
                 configExpression.CreateMap<Transaction, TransactionViewModel>();
             });

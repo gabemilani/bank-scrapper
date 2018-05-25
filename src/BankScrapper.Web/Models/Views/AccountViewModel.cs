@@ -1,5 +1,4 @@
-﻿using BankScrapper.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace BankScrapper.Web.Models.Views
@@ -8,7 +7,7 @@ namespace BankScrapper.Web.Models.Views
     {
         public string Agency { get; set; }
 
-        public Bank Bank { get; set; }
+        public string Bank { get; set; }
 
         public BillViewModel[] Bills { get; set; }
 
@@ -26,6 +25,6 @@ namespace BankScrapper.Web.Models.Views
 
         public TransactionViewModel[] Transactions { get; set; }
 
-        public AccountType Type { get; set; }
+        public string Type { get; set; }
     }
 }

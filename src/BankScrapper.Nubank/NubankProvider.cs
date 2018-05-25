@@ -29,7 +29,8 @@ namespace BankScrapper.Nubank
         {
             { "open", BillState.Open },
             { "closed", BillState.Closed },
-            { "overdue", BillState.Overdue }
+            { "overdue", BillState.Overdue },
+            { "future", BillState.Open }
         };
 
         private readonly INubankRepository _repository;

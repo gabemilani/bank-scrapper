@@ -1,0 +1,20 @@
+﻿@model BankScrapper.Web.Models.Views.TransactionViewModel[]
+
+@for (int j = 0; j < Model.Length; j++)
+{
+    <div style="margin: 15px">
+        @{
+            var transaction = Model[j];
+
+            <h5>
+                @(j + 1)
+            </h5>
+
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Valor", transaction.Amount.ToString("c")));
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Data", transaction.Date.ToString("dd/MM/yyyy HH:mm")));
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Categoria", transaction.CategoryName));
+
+            Html.RenderPartial("ExtraInformation", transaction.ExtraInformation);
+        }
+    </div>
+}

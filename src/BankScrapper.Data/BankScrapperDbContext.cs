@@ -9,6 +9,11 @@ namespace BankScrapper.Data
         {
         }
 
+        ~BankScrapperDbContext()
+        {
+            Dispose(false);
+        }
+
         public DbSet<Account> Accounts { get; set; }
 
         public DbSet<Bill> Bills { get; set; }

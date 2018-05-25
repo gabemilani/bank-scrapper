@@ -1,0 +1,21 @@
+﻿@model BankScrapper.Web.Models.Views.BillViewModel[]
+
+@for (int j = 0; j < Model.Length; j++)
+{
+    <div style="margin: 15px">
+        @{
+            var bill = Model[j];
+
+            <h5>
+                @(j + 1)
+            </h5>
+
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Estado", bill.State));
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Valor total", bill.Total.ToString("c")));
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Abertura", bill.OpenDate.ToString("dd/MM/yyyy")));
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Fechamento", bill.CloseDate.ToString("dd/MM/yyyy")));
+
+            Html.RenderPartial("ExtraInformation", bill.ExtraInformation);
+        }
+    </div>
+}

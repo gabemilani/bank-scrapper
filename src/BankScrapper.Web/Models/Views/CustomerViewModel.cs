@@ -1,6 +1,4 @@
-﻿using BankScrapper.Enums;
-using BankScrapper.ValueObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace BankScrapper.Web.Models.Views
@@ -17,7 +15,7 @@ namespace BankScrapper.Web.Models.Views
 
         public string Email { get; set; }
 
-        public Gender Gender { get; set; }
+        public string Gender { get; set; }
 
         public string Name { get; set; }
 

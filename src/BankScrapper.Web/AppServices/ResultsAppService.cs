@@ -3,6 +3,7 @@ using BankScrapper.Domain.Entities;
 using BankScrapper.Domain.Services;
 using BankScrapper.Web.Models.Views;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,13 +39,18 @@ namespace BankScrapper.Web.AppServices
 
         public async Task<AccountViewModel[]> GetEverythingAsync()
         {
-            var accounts = await _accountsService.GetAllAsync();
-            if (accounts?.Any() != true)
-                return new AccountViewModel[0];
+            var result = new List<AccountViewModel>();
 
-            var modelTasks = accounts.Select(MapToViewModelAsync).ToArray();
-            await Task.WhenAll(modelTasks);
-            return modelTasks.Select(t => t.Result).ToArray();
+            var accounts = await _accountsService.GetAllAsync();
+            if (accounts?.Any() == true)
+            {
+                foreach (var account in accounts)
+                {
+                    result.Add(await MapToViewModelAsync(account));
+                }
+            }
+
+            return result.ToArray();
         }
 
         private async Task<AccountViewModel> MapToViewModelAsync(Account account)
@@ -66,9 +72,12 @@ namespace BankScrapper.Web.AppServices
             var transactions = await _transactionsService.GetManyAsync(account.Id);
             if (transactions?.Any() == true)
             {
-                var transactionTasks = transactions.Select(MapToViewModelAsync).ToArray();
-                await Task.WhenAll(transactionTasks);
-                result.Transactions = transactionTasks.Select(t => t.Result).ToArray();
+                var resultTransactions = new List<TransactionViewModel>();
+                foreach (var transaction in transactions)
+                {
+                    resultTransactions.Add(await MapToViewModelAsync(transaction));
+                }
+                result.Transactions = resultTransactions.ToArray();
             }
 
             return result;

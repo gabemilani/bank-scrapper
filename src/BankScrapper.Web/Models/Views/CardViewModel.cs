@@ -1,5 +1,4 @@
-﻿using BankScrapper.Enums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BankScrapper.Web.Models.Views
 {
@@ -7,7 +6,7 @@ namespace BankScrapper.Web.Models.Views
     {
         public string Number { get; set; }
 
-        public CardType Type { get; set; }
+        public string Type { get; set; }
 
         public int ExpiryYear { get; set; }
 

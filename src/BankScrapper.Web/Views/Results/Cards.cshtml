@@ -1,0 +1,21 @@
+﻿@model BankScrapper.Web.Models.Views.CardViewModel[]
+
+@for (int j = 0; j < Model.Length; j++)
+{
+    <div style="margin: 15px">
+        @{  
+            var card = Model[j];
+
+            <h5>
+                @(j+1)
+            </h5>
+
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Dono", card.PrintedName));
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Número", card.Number));
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Tipo", card.Type));
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Mês de expiração", card.ExpiryMonth > 0 ? card.ExpiryMonth.ToString() : null));
+            Html.RenderPartial("Data", new KeyValuePair<string, string>("Ano de expiração", card.ExpiryYear > 0 ? card.ExpiryYear.ToString() : null));
+            Html.RenderPartial("ExtraInformation", card.ExtraInformation);
+        }
+    </div>
+}
